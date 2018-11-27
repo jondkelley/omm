@@ -1,0 +1,88 @@
+{% extends 'bootstrap/base.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block styles %}
+{{ super() }}
+<style>
+	.btn-default {
+    background-color: #266684; /* Green */
+    border: none;
+    color: white;
+    padding: 10px 22px;
+    text-align: center;
+    text-decoration: none;
+		font-weight: bold;
+    display: inline-block;
+    font-size: 19px;
+}
+</style>
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/animate.css') }}">
+{% endblock %}
+
+{% block title %}
+{{ orgname }} Operational Maturity Readiness Matrix
+{% endblock %}
+
+{% block content %}
+
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+
+      <h1>{{ orgname }} Operational Maturity Matrix</h1>
+
+      <p class="lead">O.M.M. enables your team to determine the operational maturity of your projects, total cost of ownership, and the liklihood for an application to cause negative experiences for your customers.
+				<br />
+				<br />
+				This is done by tracking the implementation of engineering best-practices to increase stability, reliability, and scalability and ensure that monitoring, alerting, root cause analysis, long term remediation, and QE improvements become seamless and natural parts of the our development and deployment processes.
+				<br />
+				<br />
+				The surveys are based on industry standards and architectual best practices. Do not be discouraged! This is tough because no gold stars will be awared for simple accomplishments. Architectual stability always takes effort at both ops / systems / network and development teams. Try to track your improvements over time.
+				<br />
+			</p>
+			<p class="lead">
+				<h3>Learn More</h3>
+				<br />
+				<ul>
+					<li><a href="https://github.com/BoomTownROI/TechOps/tree/boom-mor/boom-mor#philosophy-to-using-this-model">Philosophy to using this model</a>
+					<li><a href="https://github.com/BoomTownROI/TechOps/tree/boom-mor/boom-mor#the-goals-of-this-system">The goals of the system<a/></li>
+					<li><a href="https://github.com/BoomTownROI/TechOps/tree/boom-mor/boom-mor#about-the-matrix">The matrix dimensions</a></li>
+					<li><a href="https://github.com/BoomTownROI/TechOps/tree/boom-mor/boom-mor#scoring-criteria">Scoring Rules</a></li>
+				</ul>
+			</p>
+			<h3>Survey Result Detail</h3>
+			{% for key, value in allsurveys %}
+			<button type="button" class="btn btn-info">
+				<b><a href="/summary/detail/{{ key }}">{{ value }} matrix results</a></b>
+			</button>
+			<br />
+			{% endfor %}
+			<br/>
+			<h3>Participate in a survey</h3>
+			<br/>
+      {{ wtf.quick_form(form) }}
+
+      <p class="space-above"><strong>{{ message }}</strong></p>
+
+    </div>
+  </div>
+</div>
+
+<!--
+TIPS about using Flask-Bootstrap:
+Flask-Bootstrap keeps the default Bootstrap stylesheet in the
+env/lib/python3.5/site-packages/flask_bootstrap/static/css/ directory.
+You can replace the CSS file. HOWEVER, when you reinstall requirements
+for your project, you would overwrite all the Bootstrap files
+with the defaults.
+Flask-Bootstrap templates are in
+env/lib/python3.5/site-packages/flask_bootstrap/static/templates
+Modifying the Bootstrap base.html template: use directives and
+Jinja2's super() function. See Jinja2 documentation and also this:
+https://pythonhosted.org/Flask-Bootstrap/basic-usage.html
+-->
+
+{% endblock %}

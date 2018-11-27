@@ -1,0 +1,80 @@
+{% extends 'bootstrap/base.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block styles %}
+{{ super() }}
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+{% endblock %}
+
+{% block title %}
+Operational Maturity Readiness Matrix
+{% endblock %}
+
+{% block content %}
+
+{% for service, value in result.items() %}
+<div class="container">
+  <h1>System Matrix Score Board</h1>
+  <div class="row">
+    <div class="col-xs-12">
+      <h3>{{ service|title }} System</h3>
+      <table border = 1>
+            <tr>
+             <th>Dimension</th>
+             <th>Average Rating</th>
+            </tr>
+            {% for dimension, level in value.items() %}
+            <tr>
+               <td> {{ dimension|title }} </td>
+               <td> Level {{ level }} </td>
+            </tr>
+            {% endfor %}
+      </table>
+      <a href="#">See contributer details...</a>
+    </div>
+  </div>
+</div>
+{% endfor %}
+
+
+{% for service, value in result.items() %}
+<div class="container">
+
+    <div class="row">
+      <div class="col-xs-12">
+        </div>
+        </div>
+      <h4>Evaluation by jkelley</h4>
+      <span class="badge badge-primary">ops role</span>
+      <h5>02/02/2002 02:30 PM EDT</h5>
+      {% for dimension, level in value.items() %}
+      <table class="col-xs-14" width=300 border = 1>
+            <tr>
+             <th><h5>{{ dimension|title }}</h5></th>
+             <th><h5>Level {{ level }}</h5></th>
+            </tr>
+      </table>
+
+      <table class="col-md-14" border = 1>
+            <tr>
+             <th style="background-color: darkred; color: white; font-size: 9px;">00000000001</th>
+             <th style="background-color: darkred; color: white; font-size: 9px;">Can this application run on more then a single server? (load balanced)</th>
+             <th style="color: red;"><span class="badge">False</span></th>
+            </tr>
+      </table>
+
+      {% endfor %}
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12">
+        ss
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endfor %}
+
+
+{% endblock %}

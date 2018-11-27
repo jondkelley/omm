@@ -1,0 +1,116 @@
+{% extends 'bootstrap/base.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block styles %}
+{{ super() }}
+<style>
+	body {
+		background-image: url("/static/bg.png")
+	}
+	p, blockquote, form {
+		color: black;
+		opacity: 0.8;
+	}
+	form {
+		background-color: grey;
+	}
+	label[for="csrf_token"]
+	{
+	    display:none;
+	}
+
+		label[for="submit"]
+		{
+			color: red;
+		}
+
+.navbar {
+	background-color: #c4ebfc;
+	font-weight: bold;
+}
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/animate.css') }}">
+{% endblock %}
+
+{% block title %}
+Operational Maturity Readiness
+{% endblock %}
+
+
+{% block content %}
+
+
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand">CRM Operational Maturity Matrix</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a class="animated infinite pulse delay-0s">{{ username }}'s evaluation</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li><button type="button" class="btn"><a href="/">Leave survey for the homepage</a></button></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+<br />
+<br />
+
+<div class="container">
+
+    <div class="row">
+      <div class="col-xs-12">
+        </div>
+        </div>
+			<br/>
+			<p class="lead">Thank you for contributing to the Q4 2018 benchmark!
+
+				<blockquote>	Almost all quality improvement comes from </br>simplifcation of design, manufacturing, layout,</br> process or procedure. - Tom Peters (author of "In Search of Excellence")
+				</blockquote>
+			<form action="/take_survey" method="POST">
+			   {% for field in form %}
+			       <h4>{{ field.label() }}</h4>
+			       {{ field() }}
+			   {% endfor %}
+
+ 			 {{ surveyname }}
+
+       <!-- {{ wtf.quick_form(form) }} -->
+
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12">
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+	function readyFn( jQuery ) {
+	  $(".panel-collapse").collapse("hide");
+	}
+	$( window ).on( "load", readyFn );
+
+	$("#collapse_show").click(function(e) {
+  e.preventDefault();
+  $(".panel-collapse").collapse("show");
+});
+
+$("#collapse_hide").click(function(e) {
+  e.preventDefault();
+  $(".panel-collapse").collapse("hide");
+});</script>
+{% endblock %}

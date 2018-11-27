@@ -1,0 +1,179 @@
+{
+	"organization_name": "BoomTown",
+	"question_pool": {
+		"operability": {
+			"1": {
+				"00000000001": "Can this application run on more then a single server? (load balanced)"
+			},
+			"2": {
+				"00000000025": "Is the operations team getting involved in planning system architecture 2 weeks prior to writing any new code?",
+				"00000000026": "Are all components of the system deployed in a production account tier?",
+				"00000000027": "Has this application / system eliminated all shared user accounts and shared access?",
+				"00000000028": "Have key capacity metrics been documented and made available for consumption by operations?",
+				"00000000029": "Does the system have a defined maximum sizing / maximum load / maximum requests / maximum throughput based KPI? (key performance indicators)",
+				"00000000030": "Are the capacity expansion thresholds defined? (when would operations or auto-scale add capacity and what type)",
+				"00000000031": "Has a capacity expansion test been performed? (add new servers, add a new region, etc.)",
+				"00000000032": "Are all user accessible and consumable https endpoints using SSL certificates issued by a trusted CA? (not self signed)",
+				"00000000033": "Are there integration tests in place to test all dependent products together?"
+			},
+			"3": {
+				"00000000050": "Is the system built and deployed with available slack capacity?",
+				"00000000051": "Is the system's slack capacity documented?",
+				"00000000052": "Is the integration environment built like production is? (not necessarily same capacity)",
+				"00000000053": "Are all components of the system designed to tolerate subsystem failures in minimally impacting behavior to customers?",
+				"00000000054": "Is there a list of operational backlog items provided by an operations or support team?",
+				"00000000055": "Does the system employ continuous integration (CI) for building software artifacts?",
+				"00000000056": "Can identical process automation be used from staging to prod?",
+				"00000000057": "Does the system use centralized user access management like LDAP or Global Identity for login access?",
+				"00000000058": "Are there network layer security boundaries in place for segregation of all services and data?",
+				"00000000059": "Are alerts being fired for the defined capacity expansion thresholds?",
+				"00000000060": "Is the development team spending at least 10% of their time working on operational backlog items?",
+				"00000000061": "Are all licenses, SSL certificates, and other expirable items enumerated in the documentation?",
+				"00000000062": "Are all licenses, SSL certificates, and other expirable items set up to alert at least 30 days before expiring?"
+			},
+			"4": {
+				"00000000075": "Are the system components all familiar to the operations / support teams and they have confirmed the training provided is adequate to troubleshoot/support the system?",
+				"00000000076": "Are all libraries using mature and well-maintained projects and components?",
+				"00000000077": "Do updates to libraries, components, and dependencies trigger a new build using the updated component?",
+				"00000000078": "Is the software built using continuous delivery processes and methods? Has the application implemented fine-grained security access controls?",
+				"00000000079": "Is authentication accomplished via consolidated single centralized access management system?",
+				"00000000080": "Are all system actions and activities traceable to a single individual human?",
+				"00000000081": "Are all changes to critical system and application files triggering a notification event?"
+			},
+			"5": {
+				"00000000110": "Does the system automatically detect errors and issues and correct these without human intervention? (Self-healing)",
+				"00000000111": "Can all deployments be done with zero customer impact?",
+				"00000000112": "Is the application immune to the loss of a datacenter/region?",
+				"00000000113": "Is the data for the application replicated to multiple data centers in real-time?",
+				"00000000114": "Is the application able to perform a cross data center failover automatically and with zero customer down time?",
+				"00000000115": "Has all administrator access to all systems been removed?",
+				"00000000116": "Are all system activities done in a manner that doesn't require a human to log in?"
+			}
+		},
+		"automation": {
+			"1": {
+				"00000010000": "Does the application or system have any type of configuration management in place (ansible/salt on ec2/vms) or a cloudformation/terraform file?",
+				"00000010001": "Is the AWS/RDP/SSH console eliminated as a production automation and rollback strategy of choice?"
+			},
+			"2": {
+				"00000020000": "Are deploys orchestrated in a way they can be triggered through Jenkins/Ansible/TeamCity/Octopus and update production?",
+				"00000020001": "Is there validation the system state is \"correct\" on deploy?",
+				"00000020002": "Is there a defined process to execute when an invalid system state is detected and rollback to a good state?",
+				"00000020003": "Can the product owner or other interested party easily verify the current configuration state of the system? (via API, dashboard, etc.)",
+				"00000020004": "Is all data layer changes performed via API or schema migration? (no logging in and running SQL commands)",
+				"00000020005": "Are all DDL (data definition language) managed by API or schema migration scripts? (no SQL, mongo import, or other manual data layer manipulation)",
+				"00000020006": "Are all system configuration elements stored in a version control repository that feeds a configuration management process or system?"
+
+			},
+			"3": {
+				"00000030001": "Does the ops team describe a releases as \"One Click / No Click Deploy?\"",
+				"00000030002": "Any new node is scripted or automated in a manner that requires running a single command or job?",
+				"00000030003": "On ec2/VM's does configuration management run automatically and in a continuous manner?",
+				"00000030004": "Are system state discrepancies automatically corrected without humans?"
+			},
+			"4": {
+				"00000040001": "Is the system able to deploy new versions of software in a continuous rolling upgrade manner?",
+				"00000040002": "Are root causes fixed in the application and deployed immediately?",
+				"00000040003": "Are additional nodes auto-created due to any failures or capacity shortfalls?",
+				"00000040004": "When a new node is added to the system, is the new node automatically added some kind of monitoring system?"
+			}
+		},
+		"L/A/M/A": {
+			"1": {
+				"00000090000": "Does the system have an availability dashboard? Does the system achieve at least 98% availability?",
+				"00000090001": "Is your system capable of 2 of the accepted logging practices? (Pick 2: Cloudwatch, Disk/Local Log, Syslog, GELF/Graylog Format)",
+				"00000090003": "Is someone notified when the primary system or service becomes unavailable for requests?"
+			},
+			"2": {
+				"00000100001": "Have logging / monitoring / alerting thresholds been identified and documented?",
+				"00000100002": "Is the average daily production disk / log volume documented for capacity planning?",
+				"00000100003": "Are we being notified by an alerting system when an issue arises?",
+				"00000100004": "Do we receive a system down alerts before our customers calls us?",
+				"00000100005": "Does some form of monitoring exist, and does the monitioring see critical metrics? (system down)",
+				"00000100006": "Does the system implement server or host down alerting?",
+				"00000100007": "If the system is logging to the local hard drive, is there some log rotation implemented?",
+				"00000100008": "Does the system collect app usage metrics? (number of current users, current bandwidth, hits per hour, api requests per method, etc.)",
+				"00000100009": "Are logs available of all changes made to the product (user, date, change details) via graylog?"
+
+			},
+			"3": {
+				"00000110000": "Are alerts published to a dashboard where all support teams can know if a system is down?",
+				"00000110000": "Is all logging and monitoring data visible to the company?",
+				"00000110000": "Is the logging and monitoring data dashboard protected by LDAP login?",
+				"00000110000": "Does the system have a usage dashboard? (number of current users, current bandwidth, hits per hour, etc.)",
+				"00000110000": "Have known thresholds been defined and documented?",
+				"00000110000": "Are logging and audit data used to trigger monitoring alerts when known thresholds are exceeded?",
+				"00000070006": "Does the system have defined errors and error codes and is proper context provided in notifications?",
+				"00000070007": "Can a support person determine which functionality is broken from an alert?",
+				"00000070008": "Is there a reporting mechanism for failed hung processes, failed pages and other poor customer experience opportunities related to the product (beyond is it just \"up\" or \"down\")",
+				"00000070009": "Do the customer facing pages integrate monitoring alerts to show contextually relevant information to customers when there is an issue?",
+				"00000070010": "Are all CRUD (create, update, delete) activities logged and tracked by customer ID etc?",
+				"00000070011": "Do all alerts provide actionable items or tasks?",
+				"00000070012": "Can the ops person being alerted restore the system to a functional state without additional data?",
+				"00000070013": "Can the logging level be altered without requiring the application / service to be restarted?",
+				"00000070014": "Does the availability dashboard break availability up in to the three parts (UP, Degraded/Impacted, Down/Unavailable)?"
+				},
+			"4": {
+				"00000080000": "Does the system achieve yearly 99.9999% availability?",
+				"00000080001": "Are CRUD logs searchable by our customers to track event history to specific IP / date time?",
+				"00000080002": "Have log entry format standards for all portions of the system been defined and documented? (Like level of detail, tenant ID, user ID, listing ID etc)",
+				"00000080003": "Can the system detect and self-correct failures before the customer notices an error or impact?",
+				"00000080004": "When a new node or environment is created, does it automatically create monitoring?",
+				"00000080005": "When systems are removed or retired, are they automatically removed from the monitoring system?"
+				}
+		},
+		"documentation": {}
+	},
+	"vote_db": {
+		"project_id_1": [{
+			"survey_id": "1",
+			"username": "jkelley",
+			"role_id": "1",
+			"votes": {
+				"00000000050": true
+			},
+			"date": "393764732923"
+		}]
+	},
+	"survey_ids": {
+		"Q1_2018": {
+			"name": "Q1 2018"
+		},
+		"Q2_2018": {
+			"active": false,
+			"name": "Q2 2018"
+		},
+		"Q3_2018": {
+			"active": false,
+			"name": "Q3 2018"
+		},
+		"Q4_2018": {
+			"active": true,
+			"name": "Q4 2018"
+		}
+	},
+	"role_ids": {
+		"10": "dev",
+		"20": "ops",
+		"30": "support",
+		"40": "qa",
+		"48": "project manager",
+		"89": "product owner",
+		"50": "dev manager",
+		"60": "principal engineer",
+		"70": "architect",
+		"71": "Distinguished somebody",
+		"72": "some Fellow",
+		"90": "director",
+		"100": "vp",
+		"110": "CTO",
+		"120": "CEO"
+	},
+	"project_ids": {
+		"10": "crm_frontend",
+		"20": "flagship_api",
+		"30": "flagship_wordpress",
+		"40": "contact_service",
+		"50": "auth_service"
+	}
+}
