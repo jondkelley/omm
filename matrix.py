@@ -4,7 +4,6 @@ from flask_bootstrap import Bootstrap
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, FormField, BooleanField, SelectField
 from wtforms.validators import Required
-from data import ACTORS
 import json
 
 app = Flask(__name__)

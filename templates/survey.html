@@ -18,12 +18,21 @@
 	{
 	    display:none;
 	}
-
-		label[for="submit"]
-		{
-			color: red;
-		}
-
+	label[for="submit"]
+	{
+		color: red;
+	}
+	input[type=checkbox] {
+	  vertical-align: middle;
+	  float: right;
+	}
+	label {
+	  display: block;
+	  overflow: hidden;
+	  width: 900px;
+		padding-left: 20px;
+		padding-top: 5px;
+	}
 .navbar {
 	background-color: #c4ebfc;
 	font-weight: bold;
@@ -52,14 +61,14 @@ Operational Maturity Readiness
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand">CRM Operational Maturity Matrix</a>
+          <a class="animated infinite pulse delay-10s navbar-brand">CRM Operational Maturity Matrix</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li><a class="animated infinite pulse delay-0s">{{ username }}'s evaluation</a></li>
+            <li><a class="animated slideInLeft delay-1s">{{ username }}'s evaluation</a></li>
           </ul>
-          <ul class="nav navbar-nav navbar-right">
-            <li><button type="button" class="btn"><a href="/">Leave survey for the homepage</a></button></li>
+          <ul class="nav navbar-nav navbar-right animated slideInRight delay-0s">
+            <li><button class="btn"><a href="/">Abandon this survey for the homepage</a></button></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -78,6 +87,8 @@ Operational Maturity Readiness
 
 				<blockquote>	Almost all quality improvement comes from </br>simplifcation of design, manufacturing, layout,</br> process or procedure. - Tom Peters (author of "In Search of Excellence")
 				</blockquote>
+
+				<b><i class="animated infinite hinge delay-1s">PRO TIP: You can click the text to toggle your selection.</i></b>
 			<form action="/take_survey" method="POST">
 			   {% for field in form %}
 			       <h4>{{ field.label() }}</h4>
