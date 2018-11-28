@@ -7,12 +7,14 @@
 	body {
 		background-image: url("/static/bg.png")
 	}
+	form {
+		opacity: 0.6;
+	}
 	p, blockquote, form {
 		color: black;
-		opacity: 0.8;
 	}
 	form {
-		background-color: grey;
+		background-color: #0f8dad;
 	}
 	label[for="csrf_token"]
 	{
@@ -34,7 +36,8 @@
 		padding-top: 5px;
 	}
 .navbar {
-	background-color: #c4ebfc;
+	background-color: #f2a900;
+	color: black;
 	font-weight: bold;
 }
 </style>
@@ -44,7 +47,7 @@
 {% endblock %}
 
 {% block title %}
-Operational Maturity Readiness
+Operational Maturity Matrix
 {% endblock %}
 
 
@@ -55,6 +58,8 @@ Operational Maturity Readiness
     <nav class="navbar navbar-default navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
+
+					<a class="anchor" id="top"></a>
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
             <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
@@ -68,7 +73,7 @@ Operational Maturity Readiness
             <li><a class="animated slideInLeft delay-1s">{{ username }}'s evaluation</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right animated slideInRight delay-0s">
-            <li><button class="btn"><a href="/">Abandon this survey for the homepage</a></button></li>
+            <li><button class="btn btn-dark"><a href="/">Abandon this survey for the homepage</a></button></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -77,16 +82,16 @@ Operational Maturity Readiness
 <br />
 
 <div class="container">
-
     <div class="row">
       <div class="col-xs-12">
         </div>
         </div>
 			<br/>
-			<p class="lead">Thank you for contributing to the Q4 2018 benchmark!
+			<p class="lead">Thank you for contributing to the Q4 2018 matrix benchmark!
 
 				<blockquote>	Almost all quality improvement comes from </br>simplifcation of design, manufacturing, layout,</br> process or procedure. - Tom Peters (author of "In Search of Excellence")
 				</blockquote>
+
 
 				<b><i class="animated infinite hinge delay-1s">PRO TIP: You can click the text to toggle your selection.</i></b>
 			<form action="/take_survey" method="POST">
@@ -108,20 +113,8 @@ Operational Maturity Readiness
   </div>
 
 </div>
-
+<!--- http://jsfiddle.net/hungerpain/eK8X5/7/ --->
 <script>
-	function readyFn( jQuery ) {
-	  $(".panel-collapse").collapse("hide");
-	}
-	$( window ).on( "load", readyFn );
 
-	$("#collapse_show").click(function(e) {
-  e.preventDefault();
-  $(".panel-collapse").collapse("show");
-});
-
-$("#collapse_hide").click(function(e) {
-  e.preventDefault();
-  $(".panel-collapse").collapse("hide");
-});</script>
+</script>
 {% endblock %}
