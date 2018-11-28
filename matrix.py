@@ -112,6 +112,32 @@ class JsonDb():
         """
         writes a new vote to disk
         """
+        input_contract = {"project_id": { "survey_id": "-1", "username": "nobody", "role_id": "-1", "date": "-1", "votes": {}}}
+        # output_structr = {
+        # 	"project_id_1": [{
+        # 		"survey_id": "1",
+        # 		"username": "jkelley",
+        # 		"role_id": "1",
+        # 		"votes": {
+        # 			"00000000050": true
+        # 		},
+        # 		"achievements": ["Architectual_Operability_Level_3"],
+        # 		"date": "393764732923"
+        # 	}]}
+        value = input_contract.values()[0]
+        project_id = input_contract.keys()[0]
+        project_id = value['project_id']
+        survey_id = value['survey_id']
+        username = value['username']
+        role_id = value['role_id']
+        date = value['date']
+        votes = value['votes']
+
+        result = dict()
+        project_id_name = "project_id_{}".format(project_id)
+        result[project_id_name] = list()
+        result[project_id_name].append({"username": username, "survey_id": survey_id, "role_id": role_id, "date": date, "votes": votes})
+
         pass
 
 class StartForm(FlaskForm):
@@ -211,6 +237,10 @@ def operability():
     survey_id = request.args.get('survey_id')
     project_id = request.args.get('project_id')
     username = request.args.get('username')
+    # if request.method == 'POST' and form.validate_on_submit():
+    #     print("WTF")
+    #     print(dir(form['L/A/M/A_level_1'].form.data))
+    #     print(form['L/A/M/A_level_1'].form['00000090000'].data)
     return render_template('survey.html', username=username, form=form, message=message)
 
 # index
