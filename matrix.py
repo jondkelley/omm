@@ -2,7 +2,7 @@
 from flask import Flask, render_template, make_response, request, redirect
 from flask_bootstrap import Bootstrap
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, FormField, BooleanField, SelectField
+from wtforms import StringField, SubmitField, FormField, BooleanField, SelectField, HiddenField
 from wtforms.validators import Required
 import json
 
@@ -14,6 +14,10 @@ app.config['BOOTSTRAP_SERVE_LOCAL'] = True
 # with Flask-WTF, each web form is represented by a class
 # "NameForm" can change; "(FlaskForm)" cannot
 # see the route for "/" and "index.html" to see how this is used
+
+@app.errorhandler(500)
+def internal_server_error(e):
+    return render_template('500.html'), 500
 
 class JsonDb():
     """
@@ -77,9 +81,9 @@ class JsonDb():
         """
         get a list of surveys you can specify
         """
-        valid_surveys = []
+        valid_surveys = {}
         for id, values in self.data['survey_ids'].items():
-            valid_surveys.append((id, values['name']))
+            valid_surveys[id] = values['name']
         return valid_surveys
 
     def start_new_survey(self):
@@ -141,18 +145,18 @@ class JsonDb():
         pass
 
 class StartForm(FlaskForm):
-    username = StringField('What is your username?', validators=[Required()])
+    username = StringField('What is your name/nickname/alias/psuedonym?', validators=[Required()])
 
     jobrole_choicelist = []
     project_choicelist = []
     survey_choicelist = []
-    dbo = JsonDb()
-    for k, v in dbo.get_valid_roles().items():
+    dao = JsonDb()
+    for k, v in dao.get_valid_roles().items():
         jobrole_choicelist.append((k, v))
-    print(dbo.get_active_surveys())
-    for k, v in dbo.get_valid_projects().items():
+    print(dao.get_active_surveys())
+    for k, v in dao.get_valid_projects().items():
         project_choicelist.append((k, v))
-    for k, v in dbo.get_active_surveys():
+    for k, v in dao.get_active_surveys():
         survey_choicelist.append((k, v))
 
     jobrole = SelectField('What is your job role?', choices=jobrole_choicelist)
@@ -166,7 +170,13 @@ class SurveyForm(FlaskForm):
     """
     a metaclass template (the royal we) for questions added dynamically by generate_test_questions()
     """
-    pass
+    project_name = HiddenField("project_name")
+    survey_name = HiddenField("survey_name")
+    jobrole_name = HiddenField("jobrole_name")
+    project_id = HiddenField("project_id")
+    survey_id = HiddenField("survey_id")
+    jobrole_id = HiddenField("jobrole_id")
+    username = HiddenField("username")
 
 def generate_survey_questions():
     """
@@ -176,9 +186,9 @@ def generate_survey_questions():
     heading_class_name is cast into a class with each level containing the questions in dict() elements
     last, a submit button is created
     """
-    for dimension in dbo.data['question_pool']:
+    for dimension in dao.data['question_pool']:
         #print(dimension)
-        for level, questions in dbo.data['question_pool'][dimension].items():
+        for level, questions in dao.data['question_pool'][dimension].items():
             #print(level, questions)
             heading_class_name = "{dimension}_level_{level}".format(dimension=dimension, level=level)
             question_form = {}
@@ -187,7 +197,7 @@ def generate_survey_questions():
                 question_form[id] = BooleanField(question)
 
             setattr(SurveyForm, heading_class_name, FormField(type(heading_class_name, (FlaskForm,), question_form), id="id{}".format(heading_class_name)))
-    setattr(SurveyForm, 'submit', SubmitField('Submit Data to Survey'))
+    setattr(SurveyForm, 'submit', SubmitField('Complete Survey'))
 
 # define functions to be used by the routes (just one here)
 
@@ -222,33 +232,50 @@ def scoreboard():
     """
     return render_template('scoreboard.html')
 
-# operability
-@app.route('/take_survey', methods=['GET', 'POST'])
-def operability():
-    form = SurveyForm()
-
-    # if form1.submit1.data and form1.validate():
-    #     pass
-    # if form2.submit2.data and form2.validate():
-    #     pass
+@app.route('/survey', methods=['GET'])
+def survey_get():
     message = ""
 
     jobrole_id = request.args.get('jobrole_id')
     survey_id = request.args.get('survey_id')
     project_id = request.args.get('project_id')
-    username = request.args.get('username')
-    # if request.method == 'POST' and form.validate_on_submit():
-    #     print("WTF")
-    #     print(dir(form['L/A/M/A_level_1'].form.data))
-    #     print(form['L/A/M/A_level_1'].form['00000090000'].data)
-    return render_template('survey.html', username=username, form=form, message=message)
+    username = request.args.get('username').title()
+    try:
+        jobrole_name = dao.get_valid_roles()[jobrole_id].title()
+    except KeyError:
+        # user failed to supply args
+        return redirect("/")
+
+    survey_name = dao.get_valid_surveys()[survey_id]
+    project_name = dao.get_valid_projects()[project_id]
+    project_name = project_name.title()
+    form = SurveyForm(jobrole_id=jobrole_id, survey_id=survey_id, project_id=project_id, jobrole_name=jobrole_name, survey_name=survey_name, project_name=project_name, username=username)
+
+    return render_template('survey.html', jobrole_id=jobrole_id, survey_id=survey_id, project_id=project_id, survey_name=survey_name, jobrole_name=jobrole_name, project_name=project_name, username=username, form=form, message=message)
+
+@app.route('/survey/submitted', methods=['POST'])
+def survey_post():
+    form = SurveyForm()
+    if form.validate_on_submit():
+        print("WTF")
+        username = form['username'].data
+        jobrole_name = form['jobrole_name'].data
+        survey_name = form['survey_name'].data
+        project_name = form['project_name'].data
+        jobrole_id = form['jobrole_id'].data
+        survey_id = form['survey_id'].data
+        project_id = form['project_id'].data
+        print(project_name, survey_name, jobrole_name, username)
+        print(dir(form['L/A/M/A_level_1'].form.data))
+        message = "{}, your answers were recorded for {}.".format(username.title(), project_name.lower())
+        print(form['architectual_operability_level_1'].form['3C0726BE-C643B3E9891E'].data)
+        return render_template('voted.html', form=form, message=message, survey_id=survey_id, survey_name=survey_name, username=username, jobrole_name=jobrole_name, project_name=project_name)
 
 # index
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/index.html', methods=['GET', 'POST'])
 def index():
     names = ['crm', 'wp']#get_names(ACTORS)
-
     # you must tell the variable 'form' what you named the class, above
     # 'form' is the variable name used in this template: index.html
     form = StartForm()
@@ -259,32 +286,32 @@ def index():
         survey_id = form.survey.data
         project_id = form.project.data
 
-        roleids = [x for x in dbo.get_valid_roles().keys()]
-        projectids = [x for x in dbo.get_valid_projects().keys()]
+        roleids = [x for x in dao.get_valid_roles().keys()]
+        projectids = [x for x in dao.get_valid_projects().keys()]
 
         if jobrole_id in roleids:
-            message += "" + dbo.get_valid_roles()[jobrole_id] + " is your job title..."
+            message += "" + dao.get_valid_roles()[jobrole_id] + " is your job title..."
         if project_id in projectids:
-            message += "" + dbo.get_valid_projects()[project_id] + " is your project..."
+            message += "" + dao.get_valid_projects()[project_id] + " is your project..."
 
-        return redirect("/take_survey?jobrole_id={}&survey_id={}&project_id={}&username={}".format(jobrole_id, survey_id, project_id, username), code=307)
+        return redirect("/survey?jobrole_id={}&survey_id={}&project_id={}&username={}".format(jobrole_id, survey_id, project_id, username), code=302)
         # empty the form field
         form.username.data = ""
         form.jobrole.data = ""
         form.survey.data = ""
         form.project.data = ""
 
-        #res = make_response(render_template('survey.html', form=survey_form, surveyname=form.survey.data, message=message, orgname=dbo.get_orgname(), allsurveys=dbo.get_valid_surveys()))
+        #res = make_response(render_template('survey.html', form=survey_form, surveyname=form.survey.data, message=message, orgname=dao.get_orgname(), allsurveys=dao.get_valid_surveys()))
         # res.set_cookie("whoami", value="{}|{}|{}".format(form.username.data, form.jobrole.data, form.jobrole.data))
         #
         # message += "Cookie set.".format(form.jobrole.data)
 
     # notice that we don't need to pass name or names to the template
-
-    return render_template('index.html', form=form, message=message, orgname=dbo.get_orgname(), allsurveys=dbo.get_valid_surveys())
+    surveys = dao.get_valid_surveys()
+    return render_template('index.html', form=form, message=message, orgname=dao.get_orgname(), allsurveys=surveys)
 
 # keep this as is
 if __name__ == '__main__':
-    dbo = JsonDb()
+    dao = JsonDb()
     generate_survey_questions()
     app.run(debug=True)

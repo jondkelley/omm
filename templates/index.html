@@ -32,15 +32,15 @@
   <div class="row">
     <div class="col-xs-12">
 
+			<img width=190 height=180 src="/static/workedfineindev.png"></img>
+			<img width=260 height=180 src="/static/train.gif"></img>
+			<img class="pull-right" width=230 height=180 src="/static/levitation.png"></img>
+			<img class="pull-right" width=290 height=180 src="/static/profituptime.png"></img>
       <h1>{{ orgname }} Operational Maturity Matrix</h1>
-
       <p class="lead">O.M.M. enables your team to determine the operational maturity of your projects, total cost of ownership, and the liklihood for an application to cause negative experiences for your customers.
 				<br />
 				<br />
-				This is done by tracking the implementation of engineering best-practices to increase stability, reliability, and scalability and ensure that monitoring, alerting, root cause analysis, long term remediation, and QE improvements become seamless and natural parts of the our development and deployment processes.
-				<br />
-				<br />
-				The surveys are based on industry standards and architectual best practices. Do not be discouraged! This is tough because no gold stars will be awared for simple accomplishments. Architectual stability always takes effort at both ops / systems / network and development teams. Try to track your improvements over time.
+				This survey is based on industry standards and architectual best practices. Do not be discouraged! Architectual stability always takes effort at the ops / platform / development level to achieve success. Try to track your improvements over time.
 				<br />
 			</p>
 			<p class="lead">
@@ -54,7 +54,7 @@
 				</ul>
 			</p>
 			<h3>Survey Result Detail</h3>
-			{% for key, value in allsurveys %}
+			{% for key, value in allsurveys.items() %}
 			<button type="button" class="btn btn-info">
 				<b><a href="/summary/detail/{{ key }}">{{ value }} matrix results</a></b>
 			</button>

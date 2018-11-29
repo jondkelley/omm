@@ -224,38 +224,42 @@
 		}]
 	},
 	"survey_ids": {
-		"Q1_2018": {
+		"Q1__2018": {
 			"name": "Q1 2018"
 		},
-		"Q2_2018": {
+		"Q2__2018": {
 			"active": false,
 			"name": "Q2 2018"
 		},
-		"Q3_2018": {
+		"Q3__2018": {
 			"active": false,
 			"name": "Q3 2018"
 		},
-		"Q4_2018": {
+		"Q4__2018": {
 			"active": true,
 			"name": "Q4 2018"
+		},
+		"test": {
+			"active": true,
+			"name": "test 2018"
 		}
 	},
 	"role_ids": {
-		"10": "dev",
-		"20": "ops",
+		"10": "developer",
+		"20": "ops engineer",
 		"30": "support",
-		"40": "qa",
-		"48": "project manager",
-		"89": "product owner",
-		"50": "dev manager",
-		"60": "principal engineer",
-		"70": "architect",
-		"71": "Distinguished somebody",
-		"72": "some Fellow",
-		"90": "director",
-		"100": "vp",
-		"110": "CTO",
-		"120": "CEO"
+		"40": "QA",
+		"50": "project manager",
+		"60": "product owner",
+		"70": "dev manager",
+		"80": "principal engineer",
+		"90": "architect",
+		"100": "distinguished somebody",
+		"110": "some Fellow",
+		"120": "director",
+		"130": "VP",
+		"140": "CTO",
+		"150": "CEO"
 	},
 	"project_ids": {
 		"10": "crm_frontend",

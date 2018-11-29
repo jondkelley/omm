@@ -4,28 +4,35 @@
 {% block styles %}
 {{ super() }}
 <style>
-	body {
-		background-image: url("/static/bg.png")
-	}
+  #background {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    z-index: -1; /* Ensure div tag stays behind content; -999 might work, too. */
+  }
+
+  .stretch {
+      width:100%;
+      height:100%;
+  }
 	form {
 		opacity: 0.6;
 	}
 	p, blockquote, form {
-		color: black;
+		color: white;
 	}
 	form {
 		background-color: #0f8dad;
 	}
-	label[for="csrf_token"], label[for="project_name"],
-	label[for="survey_name"], label[for="jobrole_name"],
-	label[for="username"], label[for="submit"],
-	label[for="project_id"], label[for="survey_id"],
-	label[for="jobrole_id"]
+	label[for="csrf_token"]
 	{
 	    display:none;
 	}
-	input[id="submit"] {
-		font-size: 25px;
+	label[for="submit"]
+	{
+		color: red;
 	}
 	input[type=checkbox] {
 	  vertical-align: middle;
@@ -55,7 +62,9 @@ Operational Maturity Matrix
 
 
 {% block content %}
-
+<div id="background">
+    <img src="/static/wayne.gif" class="stretch" alt="background image" />
+</div>
 
     <!-- Fixed navbar -->
     <nav class="navbar navbar-default navbar-fixed-top">
@@ -69,14 +78,12 @@ Operational Maturity Matrix
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="animated infinite pulse delay-10s navbar-brand">{{ project_name }} Operational Maturity Matrix</a>
+          <a class="animated hinge delay-1s navbar-brand">{{ project_name }} Operational Maturity Matrix</a>
+          <b class="animated jackInTheBox delay-001s navbar-brand">Vote recorded!</b>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li><a class="animated slideInLeft delay-1s">{{ username }}'s evaluation [{{ jobrole_name }}'s cut]</a></li>
-          </ul>
-          <ul class="nav navbar-nav navbar-right animated slideInRight delay-0s">
-            <li><button class="btn btn-dark"><a href="/">Abandon this survey for the homepage</a></button></li>
+            <li><a class="animated hinge delay-2s">{{ username }}'s evaluation [{{ jobrole_name }}'s cut]</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -90,28 +97,39 @@ Operational Maturity Matrix
         </div>
         </div>
 			<br/>
-			<p class="lead"><b>Thank you for contributing to the <big>{{ survey_name }}</big> matrix benchmark!</b>
-
-				<blockquote>	Almost all quality improvement comes from </br>simplifcation of design, manufacturing, layout,</br> process, procedure, hardware or software. - Tom Peters (author of "<i>In Search of Excellence</i>" published 1982)
-				</blockquote>
-
-
-				<b><i class="animated infinite hinge delay-1s">PRO TIP: You can click the text to toggle your selection.</i></b>
-			<form action="/survey/submitted" method="POST">
-			   {% for field in form %}
-			       <h4>{{ field.label() }}</h4>
-			       {{ field() }}
-			   {% endfor %}
-
-
  			 {{ surveyname }}
-
-       <!-- {{ wtf.quick_form(form) }} -->
+       <font color="white"><h3 class="animated hinge delay-4s">{{ message }}</h3></font>
+       <br/>
+       <br/>
+       <p>
+       Thanks for your opinion!
+       <br/>
+       Your recurring participation in this survey is how we'll track our progress. This isn't a one stop shot.
+       <br/>
+       Try to work on at least 1-2 operational improvements per quarter and you'll make great progess!
+       </p>
+       <br />
+       <button class="btn btn-dark"><a href="/">Homepage</a></button>
+       <br />
+       <br />
+       <button class="btn btn-dark"><a href="/summary/detail/{{ survey_id }}">Review the Survey Results</a></button>
+       <br />
+       <br />
+       <br />
+       <br />
+       <img width=210 height=180 src="/static/voted.png"></img>
+       <img width=230 height=180 src="/static/profituptime.png"></img>
+       <img class="pull-right" width=180 height=180 src="/static/techdebt.png"></img>
+       <img class="pull-right" width=210 height=180 src="/static/workedfineindev.png"></img>
 
     </div>
 
     <div class="row">
       <div class="col-xs-12">
+
+      {% if form.csrf_token.errors %}
+          <div class="warning">You have submitted an invalid CSRF token</div>
+      {% endif %}
       </div>
     </div>
   </div>
