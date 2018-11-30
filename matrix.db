@@ -3,209 +3,209 @@
 	"question_pool": {
 		"architectual_operability": {
 			"1": {
-				"3C0726BE-C643B3E9891E": "Can this application run on more then a single server? (load balanced)"
+				"3C0726BE.C643B3E9891E": "Can this application run on more then a single server? (load balanced)"
 			},
 			"2": {
-				"A731C829-4CE335EBD768": "Is the operations team getting involved in planning system architecture 2 weeks prior to writing any new code?",
-				"451AB9D6-F02081DB5304": "Are all components of the system deployed in a production account tier?",
-				"CD3DB935-5923198C7D37": "Has this application / system eliminated all shared user accounts and shared access?",
-				"CBB8E226-78E61277C00C": "Have key capacity metrics been documented and made available for consumption by operations?",
-				"BA9FB5CC-ECBB5C8B4C49": "Does the system have a defined maximum sizing / maximum load / maximum requests / maximum throughput based KPI? (key performance indicators)",
-				"3E7C6BE5-4B3CAC9EA92D": "Are the capacity expansion thresholds defined? (when would operations or auto-scale add capacity and what type)",
-				"93361C72-3976AE0FAD2F": "Has a capacity expansion test been performed? (add new servers, add a new region, etc.)",
-				"A79425CB-CAE09DB0CCE9": "Are all user accessible and consumable https endpoints using SSL certificates issued by a trusted CA? (not self signed)",
-				"2C5FF31C-88A2B48D5CB4": "Are there integration tests in place to test all dependent products together?"
+				"A731C829.4CE335EBD768": "Is the operations team getting involved in planning system architecture 2 weeks prior to writing any new code?",
+				"451AB9D6.F02081DB5304": "Are all components of the system deployed in a production account tier?",
+				"CD3DB935.5923198C7D37": "Has this application / system eliminated all shared user accounts and shared access?",
+				"CBB8E226.78E61277C00C": "Have key capacity metrics been documented and made available for consumption by operations?",
+				"BA9FB5CC.ECBB5C8B4C49": "Does the system have a defined maximum sizing / maximum load / maximum requests / maximum throughput based KPI? (key performance indicators)",
+				"3E7C6BE5.4B3CAC9EA92D": "Are the capacity expansion thresholds defined? (when would operations or auto-scale add capacity and what type)",
+				"93361C72.3976AE0FAD2F": "Has a capacity expansion test been performed? (add new servers, add a new region, etc.)",
+				"A79425CB.CAE09DB0CCE9": "Are all user accessible and consumable https endpoints using SSL certificates issued by a trusted CA? (not self signed)",
+				"2C5FF31C.88A2B48D5CB4": "Are there integration tests in place to test all dependent products together?"
 			},
 			"3": {
-				"34259526-C8ACDD16CD61": "Is the system built and deployed with available slack capacity?",
-				"3F27EA76-BBAB0B5B1D51": "Is the system's slack capacity documented?",
-				"7DF389EC-B71A50970CBC": "Is the integration environment built like production is? (not necessarily same capacity)",
-				"7E0D320A-E023D8B574AC": "Are all components of the system designed to tolerate subsystem failures in minimally impacting behavior to customers?",
-				"717C3352-A1E8CAC1B62C": "Is there a list of operational backlog items provided by an operations or support team?",
-				"8304E86B-B86355D4C4AA": "Does the system employ continuous integration (CI) for building software artifacts?",
-				"CF702434-884124961DC8": "Can identical process automation be used from staging to prod?",
-				"B9E26C32-FF370C02DC0D": "Does the system use centralized user access management like LDAP or Global Identity for login access?",
-				"B4548856-A828A11B66FC": "Are there network layer security boundaries in place for segregation of all services and data?",
-				"6323A3E6-0C11B5F3C2C8": "Are alerts being fired for the defined capacity expansion thresholds?",
-				"7EC3E812-CC583B17BFC9": "Is the development team spending at least 10% of their time working on operational backlog items?",
-				"B0B23791-8368F0C85197": "Are all licenses, SSL certificates, and other expirable items enumerated in the documentation?",
-				"27025B7F-730D6A9AF9E8": "Are all licenses, SSL certificates, and other expirable items set up to alert at least 30 days before expiring?"
+				"34259526.C8ACDD16CD61": "Is the system built and deployed with available slack capacity?",
+				"3F27EA76.BBAB0B5B1D51": "Is the system's slack capacity documented?",
+				"7DF389EC.B71A50970CBC": "Is the integration environment built like production is? (not necessarily same capacity)",
+				"7E0D320A.E023D8B574AC": "Are all components of the system designed to tolerate subsystem failures in minimally impacting behavior to customers?",
+				"717C3352.A1E8CAC1B62C": "Is there a list of operational backlog items provided by an operations or support team?",
+				"8304E86B.B86355D4C4AA": "Does the system employ continuous integration (CI) for building software artifacts?",
+				"CF702434.884124961DC8": "Can identical process automation be used from staging to prod?",
+				"B9E26C32.FF370C02DC0D": "Does the system use centralized user access management like LDAP or Global Identity for login access?",
+				"B4548856.A828A11B66FC": "Are there network layer security boundaries in place for segregation of all services and data?",
+				"6323A3E6.0C11B5F3C2C8": "Are alerts being fired for the defined capacity expansion thresholds?",
+				"7EC3E812.CC583B17BFC9": "Is the development team spending at least 10% of their time working on operational backlog items?",
+				"B0B23791.8368F0C85197": "Are all licenses, SSL certificates, and other expirable items enumerated in the documentation?",
+				"27025B7F.730D6A9AF9E8": "Are all licenses, SSL certificates, and other expirable items set up to alert at least 30 days before expiring?"
 			},
 			"4": {
-				"A22F82D9-A22E8B000F35": "Are the system components all familiar to the operations / support teams and they have confirmed the training provided is adequate to troubleshoot/support the system?",
-				"D064BDFC-9A5565C57D76": "Are all libraries using mature and well-maintained projects and components?",
-				"AA44EA73-A8C4057B7896": "Do updates to libraries, components, and dependencies trigger a new build using the updated component?",
-				"B45E46F9-7E3D756EE303": "Is the software built using continuous delivery processes and methods? Has the application implemented fine-grained security access controls?",
-				"79BC5799-4A9680C9F271": "Is authentication accomplished via consolidated single centralized access management system?",
-				"96E54F2A-5ABA5DAB4B45": "Are all system actions and activities traceable to a single individual human?",
-				"2904DFC2-1C3122251570": "Are all changes to critical system and application files triggering a notification event?"
+				"A22F82D9.A22E8B000F35": "Are the system components all familiar to the operations / support teams and they have confirmed the training provided is adequate to troubleshoot/support the system?",
+				"D064BDFC.9A5565C57D76": "Are all libraries using mature and well-maintained projects and components?",
+				"AA44EA73.A8C4057B7896": "Do updates to libraries, components, and dependencies trigger a new build using the updated component?",
+				"B45E46F9.7E3D756EE303": "Is the software built using continuous delivery processes and methods? Has the application implemented fine-grained security access controls?",
+				"79BC5799.4A9680C9F271": "Is authentication accomplished via consolidated single centralized access management system?",
+				"96E54F2A.5ABA5DAB4B45": "Are all system actions and activities traceable to a single individual human?",
+				"2904DFC2.1C3122251570": "Are all changes to critical system and application files triggering a notification event?"
 			},
 			"5": {
-				"264DE938-5E213C451929": "Does the system automatically detect errors and issues and correct these without human intervention? (Self-healing)",
-				"CCE483AC-752C243ACEE5": "Can all deployments be done with zero customer impact?",
-				"09B83C49-BEFAF0DB0B77": "Is the application immune to the loss of a datacenter/region?",
-				"9822F419-41739C2F8A0B": "Is the data for the application replicated to multiple data centers in real-time?",
-				"F0924CB9-EC4009A41205": "Is the application able to perform a cross data center failover automatically and with zero customer down time?",
-				"1DB1E94E-64571170A47B": "Has all administrator access to all systems been removed?",
-				"47AF9734-E23477971543": "Are all system activities done in a manner that doesn't require a human to log in?"
+				"264DE938.5E213C451929": "Does the system automatically detect errors and issues and correct these without human intervention? (Self-healing)",
+				"CCE483AC.752C243ACEE5": "Can all deployments be done with zero customer impact?",
+				"09B83C49.BEFAF0DB0B77": "Is the application immune to the loss of a datacenter/region?",
+				"9822F419.41739C2F8A0B": "Is the data for the application replicated to multiple data centers in real-time?",
+				"F0924CB9.EC4009A41205": "Is the application able to perform a cross data center failover automatically and with zero customer down time?",
+				"1DB1E94E.64571170A47B": "Has all administrator access to all systems been removed?",
+				"47AF9734.E23477971543": "Are all system activities done in a manner that doesn't require a human to log in?"
 			}
 		},
 		"automation": {
 			"1": {
-				"80E5FD4F-01D06EBA365B": "Does the application or system have any type of configuration management in place (ansible/salt on ec2/vms) or a cloudformation/terraform file?",
-				"E259E59B-DECB6F6A626F": "Is the AWS/RDP/SSH console eliminated as a production automation and rollback strategy of choice?"
+				"80E5FD4F.01D06EBA365B": "Does the application or system have any type of configuration management in place (ansible/salt on ec2/vms) or a cloudformation/terraform file?",
+				"E259E59B.DECB6F6A626F": "Is the AWS/RDP/SSH console eliminated as a production automation and rollback strategy of choice?"
 			},
 			"2": {
-				"17FAD9F0-895B3C7C3B6B": "Are deploys orchestrated in a way they can be triggered through Jenkins/Ansible/TeamCity/Octopus and update production?",
-				"A2C462EA-5E47AEBDB7DA": "Is there validation the system state is \"correct\" on deploy?",
-				"612F603C-ABE166E5E5AE": "Is there a defined process to execute when an invalid system state is detected and rollback to a good state?",
-				"D5E55DE6-2B03A2000C4D": "Can the product owner or other interested party easily verify the current configuration state of the system? (via API, dashboard, etc.)",
-				"98318CEF-6134F2E0FBFA": "Is all data layer changes performed via API or schema migration? (no logging in and running SQL commands)",
-				"27181636-BF1A522F0B95": "Are all DDL (data definition language) managed by API or schema migration scripts? (no SQL, mongo import, or other manual data layer manipulation)",
-				"8B3535DF-9A2EF3346ED5": "Are all system configuration elements stored in a version control repository that feeds a configuration management process or system?"
+				"17FAD9F0.895B3C7C3B6B": "Are deploys orchestrated in a way they can be triggered through Jenkins/Ansible/TeamCity/Octopus and update production?",
+				"A2C462EA.5E47AEBDB7DA": "Is there validation the system state is \"correct\" on deploy?",
+				"612F603C.ABE166E5E5AE": "Is there a defined process to execute when an invalid system state is detected and rollback to a good state?",
+				"D5E55DE6.2B03A2000C4D": "Can the product owner or other interested party easily verify the current configuration state of the system? (via API, dashboard, etc.)",
+				"98318CEF.6134F2E0FBFA": "Is all data layer changes performed via API or schema migration? (no logging in and running SQL commands)",
+				"27181636.BF1A522F0B95": "Are all DDL (data definition language) managed by API or schema migration scripts? (no SQL, mongo import, or other manual data layer manipulation)",
+				"8B3535DF.9A2EF3346ED5": "Are all system configuration elements stored in a version control repository that feeds a configuration management process or system?"
 
 			},
 			"3": {
-				"26DE3C12-B1ADA56F42FB": "Does the ops team describe a releases as \"One Click / No Click Deploy?\"",
-				"7C000AEC-A73435494DC4": "Any new node is scripted or automated in a manner that requires running a single command or job?",
-				"09A6D34D-7E1993EA3EA4": "On ec2/VM's does configuration management run automatically and in a continuous manner?",
-				"81E59772-186A8341A85F": "Are system state discrepancies automatically corrected without humans?"
+				"26DE3C12.B1ADA56F42FB": "Does the ops team describe a releases as \"One Click / No Click Deploy?\"",
+				"7C000AEC.A73435494DC4": "Any new node is scripted or automated in a manner that requires running a single command or job?",
+				"09A6D34D.7E1993EA3EA4": "On ec2/VM's does configuration management run automatically and in a continuous manner?",
+				"81E59772.186A8341A85F": "Are system state discrepancies automatically corrected without humans?"
 			},
 			"4": {
-				"ADF40F23-780ACDEDD336": "Is the system able to deploy new versions of software in a continuous rolling upgrade manner?",
-				"24D95F9C-18A361A47CF9": "Are root causes fixed in the application and deployed immediately?",
-				"AF81785B-DF7D90D5E990": "Are additional nodes auto-created due to any failures or capacity shortfalls?",
-				"78490DFF-20F1C77D4723": "When a new node is added to the system, is the new node automatically added some kind of monitoring system?"
+				"ADF40F23.780ACDEDD336": "Is the system able to deploy new versions of software in a continuous rolling upgrade manner?",
+				"24D95F9C.18A361A47CF9": "Are root causes fixed in the application and deployed immediately?",
+				"AF81785B.DF7D90D5E990": "Are additional nodes auto-created due to any failures or capacity shortfalls?",
+				"78490DFF.20F1C77D4723": "When a new node is added to the system, is the new node automatically added some kind of monitoring system?"
 			}
 		},
 		"L/A/M/A": {
 			"1": {
-				"A5BB78AF-10FF00C20BB2": "Does the system have an availability dashboard? Does the system achieve at least 98% availability?",
-				"A78547CA-A0E683345211": "Is your system capable of 2 of the accepted logging practices? (Pick 2: Cloudwatch, Disk/Local Log, Syslog, GELF/Graylog Format)",
-				"9EA07869-9FD3FA7099A7": "Is someone notified when the primary system or service becomes unavailable for requests?"
+				"A5BB78AF.10FF00C20BB2": "Does the system have an availability dashboard? Does the system achieve at least 98% availability?",
+				"A78547CA.A0E683345211": "Is your system capable of 2 of the accepted logging practices? (Pick 2: Cloudwatch, Disk/Local Log, Syslog, GELF/Graylog Format)",
+				"9EA07869.9FD3FA7099A7": "Is someone notified when the primary system or service becomes unavailable for requests?"
 			},
 			"2": {
-				"4363C145-698048DE089F": "Have logging / monitoring / alerting thresholds been identified and documented?",
-				"5F626790-D27BA680BBBE": "Is the average daily production disk / log volume documented for capacity planning?",
-				"F7E0D053-872712AF199E": "Are we being notified by an alerting system when an issue arises?",
-				"15D26D26-E4FDE59D21B2": "Do we receive a system down alerts before our customers calls us?",
-				"6CFE7C7A-7A49392AE665": "Does some form of monitoring exist, and does the monitioring see critical metrics? (system down)",
-				"D70E8AA6-785235D4C11A": "Does the system implement server or host down alerting?",
-				"F83341B9-A681350EB591": "If the system is logging to the local hard drive, is there some log rotation implemented?",
-				"0C0B8A4A-B684767A4934": "Does the system collect app usage metrics? (number of current users, current bandwidth, hits per hour, api requests per method, etc.)",
-				"53AE2F3E-51A45CDED276": "Are logs available of all changes made to the product (user, date, change details) via graylog?"
+				"4363C145.698048DE089F": "Have logging / monitoring / alerting thresholds been identified and documented?",
+				"5F626790.D27BA680BBBE": "Is the average daily production disk / log volume documented for capacity planning?",
+				"F7E0D053.872712AF199E": "Are we being notified by an alerting system when an issue arises?",
+				"15D26D26.E4FDE59D21B2": "Do we receive a system down alerts before our customers calls us?",
+				"6CFE7C7A.7A49392AE665": "Does some form of monitoring exist, and does the monitioring see critical metrics? (system down)",
+				"D70E8AA6.785235D4C11A": "Does the system implement server or host down alerting?",
+				"F83341B9.A681350EB591": "If the system is logging to the local hard drive, is there some log rotation implemented?",
+				"0C0B8A4A.B684767A4934": "Does the system collect app usage metrics? (number of current users, current bandwidth, hits per hour, api requests per method, etc.)",
+				"53AE2F3E.51A45CDED276": "Are logs available of all changes made to the product (user, date, change details) via graylog?"
 
 			},
 			"3": {
-				"D17B1251-00E8FAF88DE8": "Are alerts published to a dashboard where all support teams can know if a system is down?",
-				"8A5E2849-F30E53A3AAC0": "Is all logging and monitoring data visible to the company?",
-				"446496D5-2FAC10FAFC97": "Is the logging and monitoring data dashboard protected by LDAP login?",
-				"DE7BCFB7-1AD6657FBA09": "Does the system have a usage dashboard? (number of current users, current bandwidth, hits per hour, etc.)",
-				"A4D955EE-56AD23111442": "Have known thresholds been defined and documented?",
-				"038F473D-B7E179A046FD": "Are logging and audit data used to trigger monitoring alerts when known thresholds are exceeded?",
-				"FBFA489D-79FABD10BBA9": "Does the system have defined errors and error codes and is proper context provided in notifications?",
-				"0B6995EF-294B6159DE3E": "Can a support person determine which functionality is broken from an alert?",
-				"7841B60A-6E03EC008D0C": "Is there a reporting mechanism for failed hung processes, failed pages and other poor customer experience opportunities related to the product (beyond is it just \"up\" or \"down\")",
-				"FCA1DEBB-A8D5ABBC16D3": "Do the customer facing pages integrate monitoring alerts to show contextually relevant information to customers when there is an issue?",
-				"E7BE426E-C950D99912CF": "Are all CRUD (create, update, delete) activities logged and tracked by customer ID etc?",
-				"79957767-F83A519A1DAF": "Do all alerts provide actionable items or tasks?",
-				"5B507280-1BF26A276666": "Can the ops person being alerted restore the system to a functional state without additional data?",
-				"3596BDB4-E2FF2FCD3674": "Can the logging level be altered without requiring the application / service to be restarted?",
-				"790C8AC9-63E98CAA6C0F": "Does the availability dashboard break availability up in to the three parts (UP, Degraded/Impacted, Down/Unavailable)?"
+				"D17B1251.00E8FAF88DE8": "Are alerts published to a dashboard where all support teams can know if a system is down?",
+				"8A5E2849.F30E53A3AAC0": "Is all logging and monitoring data visible to the company?",
+				"446496D5.2FAC10FAFC97": "Is the logging and monitoring data dashboard protected by LDAP login?",
+				"DE7BCFB7.1AD6657FBA09": "Does the system have a usage dashboard? (number of current users, current bandwidth, hits per hour, etc.)",
+				"A4D955EE.56AD23111442": "Have known thresholds been defined and documented?",
+				"038F473D.B7E179A046FD": "Are logging and audit data used to trigger monitoring alerts when known thresholds are exceeded?",
+				"FBFA489D.79FABD10BBA9": "Does the system have defined errors and error codes and is proper context provided in notifications?",
+				"0B6995EF.294B6159DE3E": "Can a support person determine which functionality is broken from an alert?",
+				"7841B60A.6E03EC008D0C": "Is there a reporting mechanism for failed hung processes, failed pages and other poor customer experience opportunities related to the product (beyond is it just \"up\" or \"down\")",
+				"FCA1DEBB.A8D5ABBC16D3": "Do the customer facing pages integrate monitoring alerts to show contextually relevant information to customers when there is an issue?",
+				"E7BE426E.C950D99912CF": "Are all CRUD (create, update, delete) activities logged and tracked by customer ID etc?",
+				"79957767.F83A519A1DAF": "Do all alerts provide actionable items or tasks?",
+				"5B507280.1BF26A276666": "Can the ops person being alerted restore the system to a functional state without additional data?",
+				"3596BDB4.E2FF2FCD3674": "Can the logging level be altered without requiring the application / service to be restarted?",
+				"790C8AC9.63E98CAA6C0F": "Does the availability dashboard break availability up in to the three parts (UP, Degraded/Impacted, Down/Unavailable)?"
 				},
 			"4": {
-				"A0F8CAB0-D07DBAD11300": "Does the system achieve yearly 99.9999% availability?",
-				"141D413B-5D39AC4F0F76": "Are CRUD logs searchable by our customers to track event history to specific IP / date time?",
-				"F3E00EEE-B77E89B8AC54": "Have log entry format standards for all portions of the system been defined and documented? (Like level of detail, tenant ID, user ID, listing ID etc)",
-				"76D44215-49E679A90932": "Can the system detect and self-correct failures before the customer notices an error or impact?",
-				"2281BBFA-9F47F535450C": "When a new node or environment is created, does it automatically create monitoring?",
-				"19A7D255-172091C92DA8": "When systems are removed or retired, are they automatically removed from the monitoring system?"
+				"A0F8CAB0.D07DBAD11300": "Does the system achieve yearly 99.9999% availability?",
+				"141D413B.5D39AC4F0F76": "Are CRUD logs searchable by our customers to track event history to specific IP / date time?",
+				"F3E00EEE.B77E89B8AC54": "Have log entry format standards for all portions of the system been defined and documented? (Like level of detail, tenant ID, user ID, listing ID etc)",
+				"76D44215.49E679A90932": "Can the system detect and self-correct failures before the customer notices an error or impact?",
+				"2281BBFA.9F47F535450C": "When a new node or environment is created, does it automatically create monitoring?",
+				"19A7D255.172091C92DA8": "When systems are removed or retired, are they automatically removed from the monitoring system?"
 				}
 		},
 		"recoverability": {
 			"1": {
-				"158BB17E-DF772A176D9F": "In the event of a system outage, is all data retained? (zero data lost)",
-				"D79DF945-0DF8CE99CEAE": "Is there a development team assigned to the product or system?",
-				"07F7B779-97940777F628": "Is the location of the application / system source code known?",
-				"8CBAC57B-59EB90374B56": "Is the code located in a version control system?",
-				"32573035-F47F74A38FD2": "Does the code for version 'x' in the version control system match the code in production for the same version?"
+				"158BB17E.DF772A176D9F": "In the event of a system outage, is all data retained? (zero data lost)",
+				"D79DF945.0DF8CE99CEAE": "Is there a development team assigned to the product or system?",
+				"07F7B779.97940777F628": "Is the location of the application / system source code known?",
+				"8CBAC57B.59EB90374B56": "Is the code located in a version control system?",
+				"32573035.F47F74A38FD2": "Does the code for version 'x' in the version control system match the code in production for the same version?"
 			},
 			"2": {
-				"8E634846-7F4C36939E5F": "Are backups of the user or system data being performed on a regular basis? (at least weekly, daily preferred)",
-				"0F138DCE-89EADC7658EB": "When backups are performed, are they copied to another datacenter/region?",
-				"A1C835A0-77D45522C6EB": "Are backups being performed in an automated fashion?",
-				"D5A5FAA6-A5085E57B68B": "Is the system data replicated to a second node real-time?",
-				"842893C8-2EA6D29C058F": "Does the system have a dedicated development team assigned to it?",
-				"A6CA525E-27B439D7B6DF": "Is there a dedicated development team assigned and actively working on operational enhancements?",
-				"7356BC25-983C4F9822F6": "Is there a dedicated development team assigned and actively working on bug fixes?",
-				"F424ADD7-0A422E0675E8": "Are there operational / technical debt fixes listed in the backlog for this system?",
-				"BA69D4C1-CCCBCB6FA560": "Is there an automated build server running and building code that is committed to the version control system?"
+				"8E634846.7F4C36939E5F": "Are backups of the user or system data being performed on a regular basis? (at least weekly, daily preferred)",
+				"0F138DCE.89EADC7658EB": "When backups are performed, are they copied to another datacenter/region?",
+				"A1C835A0.77D45522C6EB": "Are backups being performed in an automated fashion?",
+				"D5A5FAA6.A5085E57B68B": "Is the system data replicated to a second node real-time?",
+				"842893C8.2EA6D29C058F": "Does the system have a dedicated development team assigned to it?",
+				"A6CA525E.27B439D7B6DF": "Is there a dedicated development team assigned and actively working on operational enhancements?",
+				"7356BC25.983C4F9822F6": "Is there a dedicated development team assigned and actively working on bug fixes?",
+				"F424ADD7.0A422E0675E8": "Are there operational / technical debt fixes listed in the backlog for this system?",
+				"BA69D4C1.CCCBCB6FA560": "Is there an automated build server running and building code that is committed to the version control system?"
 			},
 			"3": {
-				"D5D619F1-8D0CFE8F3C6E": "Do notifications get sent via a real-time messaging protocol when a failure is detected?",
-				"51353CE1-114755D2738A": "Is the user and system data replicated to secondary data center/region? (real-time or as a backup)",
-				"F1628F40-11839AD751D6": "Are all software components actively developed and maintained by a dedicated development team?",
-				"AA0FCC5B-0061DE95CCD9": "Is there a documented manual process for recreating system components / environments?",
-				"3E422226-387CD9B4014E": "Has the system recreation process been successfully been tested?",
-				"4CFB37F8-4BED93F9EBE4": "Is there a documented manual process to recover the system and user data?",
-				"5F692886-9F06F24E5E6E": "Has the recovery process been tested and resulted in a successful recovery of all system and user data?",
-				"A9F822E5-BBE0965119E6": "Are recovery tests performed at least every 90 days?",
-				"53F5C4DA-73FD7B5B048A": "When doing a release, have the backout procedures been successfully tested?",
-				"F5E7F87C-4F2562D37D1F": "Does the recovery SLA accurately reflect the time to recover? (based on a successful recovery test)",
-				"A13C7965-95F2FB79E398": "Have network device fail-over testes been executed and resulted in success with zero down time to the application?",
-				"D2F83CE2-43D3EB781333": "If an error occurs, is any data entered by the user retained for reprocessing? (eventual consistency)",
-				"B0C85D9C-DA5A19DD157F": "If the product stores data, has the product been tested with backup solutions?"
+				"D5D619F1.8D0CFE8F3C6E": "Do notifications get sent via a real-time messaging protocol when a failure is detected?",
+				"51353CE1.114755D2738A": "Is the user and system data replicated to secondary data center/region? (real-time or as a backup)",
+				"F1628F40.11839AD751D6": "Are all software components actively developed and maintained by a dedicated development team?",
+				"AA0FCC5B.0061DE95CCD9": "Is there a documented manual process for recreating system components / environments?",
+				"3E422226.387CD9B4014E": "Has the system recreation process been successfully been tested?",
+				"4CFB37F8.4BED93F9EBE4": "Is there a documented manual process to recover the system and user data?",
+				"5F692886.9F06F24E5E6E": "Has the recovery process been tested and resulted in a successful recovery of all system and user data?",
+				"A9F822E5.BBE0965119E6": "Are recovery tests performed at least every 90 days?",
+				"53F5C4DA.73FD7B5B048A": "When doing a release, have the backout procedures been successfully tested?",
+				"F5E7F87C.4F2562D37D1F": "Does the recovery SLA accurately reflect the time to recover? (based on a successful recovery test)",
+				"A13C7965.95F2FB79E398": "Have network device fail-over testes been executed and resulted in success with zero down time to the application?",
+				"D2F83CE2.43D3EB781333": "If an error occurs, is any data entered by the user retained for reprocessing? (eventual consistency)",
+				"B0C85D9C.DA5A19DD157F": "If the product stores data, has the product been tested with backup solutions?"
 			},
 			"4": {
-				"1B83D27D-B26F2895D390": "Is there minimal customer impact if an incident happens?",
-				"985DDA42-D6462ADA6184": "Does the system implement multi-master cross data center/regional replication of all system and user data?",
-				"F813E9CF-A8D6399D3874": "Is the process for recreating a failed environment automated?",
-				"86A9EC12-0FB1C675CE00": "Is the time to recover from a disaster or complete environment loss less than 48 hours?",
-				"3F4D77D9-37D5EAD018AC": "Has a disaster recovery test been performed with a successful result?",
-				"CACC1EBD-40A86C9F524E": "Is there a quality engineering test that simulates failures of random system components?"
+				"1B83D27D.B26F2895D390": "Is there minimal customer impact if an incident happens?",
+				"985DDA42.D6462ADA6184": "Does the system implement multi-master cross data center/regional replication of all system and user data?",
+				"F813E9CF.A8D6399D3874": "Is the process for recreating a failed environment automated?",
+				"86A9EC12.0FB1C675CE00": "Is the time to recover from a disaster or complete environment loss less than 48 hours?",
+				"3F4D77D9.37D5EAD018AC": "Has a disaster recovery test been performed with a successful result?",
+				"CACC1EBD.40A86C9F524E": "Is there a quality engineering test that simulates failures of random system components?"
 				},
 			"5": {
-				"81EAE190-AD0DF90E0272": "Is the system geo-redundant (for example, multiple regions)?",
-				"301D2E80-38FE68A7CA6F": "Has cross datacenter fail-over been implemented and tested with a successful outcome?",
-				"EF6C2028-EAA3B77D818D": "Does the system automatically detect failures and route customer traffic to an alternate datacenter/region/provider?",
-				"472D867C-C704F3F40AB7": "Is the customer unaware of any failures and rerouting of their traffic to an alternate location?",
-				"996D31F3-4230FC92B930": "Is there zero downtime if any type of disaster event or system failure occurs?",
-				"7D4CFC81-F2DED1C36930": "Can the system survive a ChaosMonkey or ChaosGorilla outage without human intervention?",
-				"AC3C20EF-8A0496C25C03": "Is the infrastructure able to respond to failed components and automatically recreate the missing elements?",
-				"99BFA117-00DAEB3370C2": "Is the infrastructure able to respond to load thresholds and automatically add new capacity / auto-scale?"
+				"81EAE190.AD0DF90E0272": "Is the system geo-redundant (for example, multiple regions)?",
+				"301D2E80.38FE68A7CA6F": "Has cross datacenter fail-over been implemented and tested with a successful outcome?",
+				"EF6C2028.EAA3B77D818D": "Does the system automatically detect failures and route customer traffic to an alternate datacenter/region/provider?",
+				"472D867C.C704F3F40AB7": "Is the customer unaware of any failures and rerouting of their traffic to an alternate location?",
+				"996D31F3.4230FC92B930": "Is there zero downtime if any type of disaster event or system failure occurs?",
+				"7D4CFC81.F2DED1C36930": "Can the system survive a ChaosMonkey or ChaosGorilla outage without human intervention?",
+				"AC3C20EF.8A0496C25C03": "Is the infrastructure able to respond to failed components and automatically recreate the missing elements?",
+				"99BFA117.00DAEB3370C2": "Is the infrastructure able to respond to load thresholds and automatically add new capacity / auto-scale?"
 				}
 		},
 		"documentation": {
 			"1": {
-				"46149BC4-E8F02CFD712F": "Does the system have any documentation?"
+				"46149BC4.E8F02CFD712F": "Does the system have any documentation?"
 			},
 			"2": {
-				"46149BC4-E8F02CFD712F": "Is there any documentation and comments in the code?",
-				"73811A3B-A5159C98AABC": "Is there a web page (such as a wiki-like system) with the documentation for the application?",
-				"A4359DF5-D6434C140A44": "Is there an onboarding guide that describes the system for new team members?",
-				"53F13955-35A3C7176A44": "Other than pair programming, is there a way for new team members to learn about this system?",
-				"8B7D2616-931C617B704F": "Is pair programming used as a secondary method of learning about the system?",
-				"71E54CD3-0671580C373A": "Would an operations person or team be able to take over support of the system without having to sit with an existing team member?"
+				"46149BC4.E8F02CFD712F": "Is there any documentation and comments in the code?",
+				"73811A3B.A5159C98AABC": "Is there a web page (such as a wiki-like system) with the documentation for the application?",
+				"A4359DF5.D6434C140A44": "Is there an onboarding guide that describes the system for new team members?",
+				"53F13955.35A3C7176A44": "Other than pair programming, is there a way for new team members to learn about this system?",
+				"8B7D2616.931C617B704F": "Is pair programming used as a secondary method of learning about the system?",
+				"71E54CD3.0671580C373A": "Would an operations person or team be able to take over support of the system without having to sit with an existing team member?"
 			},
 			"3": {
-				"46149BC4-E8F02CFD712F": "Is there a centrally managed collection of web pages for the system?",
-				"8FB4F5AF-BA28CFCBF365": "Are the web pages hosted on confluence?",
-				"48655BFB-1F68DF3659DE": "Do documentation updates occur as frequently as new releases of software are deployed to production?"
+				"46149BC4.E8F02CFD712F": "Is there a centrally managed collection of web pages for the system?",
+				"8FB4F5AF.BA28CFCBF365": "Are the web pages hosted on confluence?",
+				"48655BFB.1F68DF3659DE": "Do documentation updates occur as frequently as new releases of software are deployed to production?"
 			},
 			"4": {
-				"46149BC4-E8F02CFD712F": "Is the content of the documentation regularly updated and checked for validity?",
-				"DA3550BD-F057344C42C2": "Is the documentation content independently audited for accuracy?",
-				"576E04FD-710C7C259FAB": "Does the documentation contain clear understanding of the system intent and the risks necessary to support good decisions?",
-				"F2C24707-ED8BC53B4895": "Does the system have well-defined runbooks?",
-				"E2980846-9C6BD2C50798": "When new team members join, there is little or no need for pair programming to be productive?",
-				"B295E1D1-2FB7BF151A92": "Are all system dependencies documented and kept current?"
+				"46149BC4.E8F02CFD712F": "Is the content of the documentation regularly updated and checked for validity?",
+				"DA3550BD.F057344C42C2": "Is the documentation content independently audited for accuracy?",
+				"576E04FD.710C7C259FAB": "Does the documentation contain clear understanding of the system intent and the risks necessary to support good decisions?",
+				"F2C24707.ED8BC53B4895": "Does the system have well-defined runbooks?",
+				"E2980846.9C6BD2C50798": "When new team members join, there is little or no need for pair programming to be productive?",
+				"B295E1D1.2FB7BF151A92": "Are all system dependencies documented and kept current?"
 			},
 			"5": {
-				"46149BC4-E8F02CFD712F": "Is the documentation auto-generated from code?",
-				"3F1F9917-7952DDFC3CB7": "Does code build automation generate new, and update existing documentation?",
-				"C40C80D8-5E1FD089DAA2": "Will the code deployment automation also deploy new documentation simultaneously?",
-				"226C86D5-B312F8DC843B": "Are all system dependencies documented and kept current in an automated fashion?",
-				"17FF05F4-5574050F11CE": "Are the configuration management system and documentation kept in sync automatically?"
+				"46149BC4.E8F02CFD712F": "Is the documentation auto-generated from code?",
+				"3F1F9917.7952DDFC3CB7": "Does code build automation generate new, and update existing documentation?",
+				"C40C80D8.5E1FD089DAA2": "Will the code deployment automation also deploy new documentation simultaneously?",
+				"226C86D5.B312F8DC843B": "Are all system dependencies documented and kept current in an automated fashion?",
+				"17FF05F4.5574050F11CE": "Are the configuration management system and documentation kept in sync automatically?"
 			}
 		}
 	},

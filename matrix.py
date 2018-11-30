@@ -48,6 +48,16 @@ class JsonDb():
         """
         return self.data['organization_name']
 
+    def validate_question(self, dimension, level, question_id):
+        """
+        returns true if question is in database
+        """
+        valid_question = True
+        valid_question = self.data.get('question_pool', False)
+        valid_question = self.data['question_pool'].get(dimension, False)
+        valid_question = self.data['question_pool'][dimension].get(level, False)
+        valid_question = self.data['question_pool'][dimension][level].get(question_id, False)
+        return valid_question
 
     def get_questions(self):
         """
@@ -253,6 +263,27 @@ def survey_get():
 
     return render_template('survey.html', jobrole_id=jobrole_id, survey_id=survey_id, project_id=project_id, survey_name=survey_name, jobrole_name=jobrole_name, project_name=project_name, username=username, form=form, message=message)
 
+def get_question_levels(form):
+    """
+    extracts a list of levels from the form object
+    """
+    levels = []
+    for level in form:
+        if "_level_" in level.name:
+            if not level.name.endswith("csrf_token"):
+                levels.append(level.name)
+    return levels
+
+def get_questions(form, level):
+    """
+    retrieve a list of questions from the sub form inside a dimension
+    """
+    questions = []
+    for question in form[level].form:
+        if not question.name.endswith("csrf_token"):
+            questions.append(question.name)
+    return questions
+
 @app.route('/survey/submitted', methods=['POST'])
 def survey_post():
     form = SurveyForm()
@@ -268,7 +299,23 @@ def survey_post():
         print(project_name, survey_name, jobrole_name, username)
         print(dir(form['L/A/M/A_level_1'].form.data))
         message = "{}, your answers were recorded for {}.".format(username.title(), project_name.lower())
-        print(form['architectual_operability_level_1'].form['3C0726BE-C643B3E9891E'].data)
+        print(form['architectual_operability_level_1'].form['3C0726BE.C643B3E9891E'].data)
+
+        for level in get_question_levels(form):
+            dimension = level.split("_level_")[0]
+            level_number = level.split("level_")[1]
+            questions = get_questions(form, level)
+            for question_id in questions:
+                question_id = "".join(question_id.split("-")[1:])
+                vote_value = form[level].form[question_id].data
+                #print(question_id)
+                if dao.validate_question(dimension, level_number, question_id):
+                    print("{} == {}".format(question_id, vote_value))
+                else:
+                    print("Invalid form value provided {}".format(question_id))
+                #print(form[level].form.data[question].form.data)
+                pass#print(question, form[level].form[question].data)
+
         return render_template('voted.html', form=form, message=message, survey_id=survey_id, survey_name=survey_name, username=username, jobrole_name=jobrole_name, project_name=project_name)
 
 # index
@@ -314,4 +361,4 @@ def index():
 if __name__ == '__main__':
     dao = JsonDb()
     generate_survey_questions()
-    app.run(debug=True)
+    app.run(debug=True, port=9999)

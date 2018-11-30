@@ -7,6 +7,46 @@
 	body {
 		background-image: url("/static/bg.png")
 	}
+
+
+	/* Style the collapsible content. Note: hidden by default */
+	.collapsible_content {
+	  padding: 0 28px;
+	  display: none;
+	  overflow: hidden;
+	}
+
+	/* Style the button that is used to open and close the collapsible content */
+.collapsible {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.active, .collapsible:hover {
+  background-color: #ccc;
+}
+
+/* Style the collapsible content. Note: hidden by default */
+.collapsible_content {
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+  background-color: #f1f1f1;
+}
+
+  #headerusername, #headersurvey_name, #headerproject_name, #headerjobrole_name,
+	#headerproject_id,#headersurvey_id,	#headerjobrole_id, #headercsrf_token,
+	#headersubmit {
+		display: none;
+	}
 	form {
 		opacity: 0.6;
 	}
@@ -31,12 +71,14 @@
 	  vertical-align: middle;
 	  float: right;
 	}
-	label {
-	  display: block;
-	  overflow: hidden;
-	  width: 900px;
-		padding-left: 20px;
-		padding-top: 5px;
+	.afield {
+	  background-color: white;
+		font-family: arial;
+	}
+
+	/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+	.active, label:hover {
+		background-color: #ccc;
 	}
 .navbar {
 	background-color: #f2a900;
@@ -96,14 +138,21 @@ Operational Maturity Matrix
 				</blockquote>
 
 
-				<b><i class="animated infinite hinge delay-1s">PRO TIP: You can click the text to toggle your selection.</i></b>
+				<b><kbd>INSTRUCTIONS:</kbd></b>
+				<b><kbd>To make this fast, only expand the highest level of each dimension that can meet 100%. If you can't, try a new dimension.
+					</br>
+				If you can't complete Recoverability level 1, you don't need to review Recoverability level 2 questions until level 1 is achieved in production.</kbd></b>
 			<form action="/survey/submitted" method="POST">
 			   {% for field in form %}
-			       <h4>{{ field.label() }}</h4>
-			       {{ field() }}
+			       <h4 id="header{{ field.name }}" class="collapsible">{{ field.label() }}</h4>
+						 <div class="collapsible_content">
+			       <div class="afield">{{ field() }}</div>
+						 </div>
 			   {% endfor %}
 
-
+				</br>
+    		<input class="btn btn-default" id="submit" name="submit" type="submit" value="Complete Survey">
+				 </form>
  			 {{ surveyname }}
 
        <!-- {{ wtf.quick_form(form) }} -->
@@ -119,6 +168,19 @@ Operational Maturity Matrix
 </div>
 <!--- http://jsfiddle.net/hungerpain/eK8X5/7/ --->
 <script>
+	var coll = document.getElementsByClassName("collapsible");
+	var i;
 
+	for (i = 0; i < coll.length; i++) {
+	  coll[i].addEventListener("click", function() {
+	    this.classList.toggle("active");
+	    var content = this.nextElementSibling;
+	    if (content.style.display === "block") {
+	      content.style.display = "none";
+	    } else {
+	      content.style.display = "block";
+	    }
+	  });
+	}
 </script>
 {% endblock %}
