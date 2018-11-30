@@ -5,6 +5,9 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, FormField, BooleanField, SelectField, HiddenField
 from wtforms.validators import DataRequired
 import json
+import sqlite3
+import uuid
+import datetime
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'xxxxxxxxxxxxxxxxxxxxxxxxxxx'
@@ -14,6 +17,7 @@ app.config['BOOTSTRAP_SERVE_LOCAL'] = True
 # with Flask-WTF, each web form is represented by a class
 # "NameForm" can change; "(FlaskForm)" cannot
 # see the route for "/" and "index.html" to see how this is used
+
 
 @app.errorhandler(500)
 def internal_server_error(e):
@@ -290,6 +294,9 @@ def get_questions(form, level):
 
 @app.route('/survey/submitted', methods=['POST'])
 def survey_post():
+    tuuid = "-".join(str(uuid.uuid4()).split("-")[2:])
+    conn = sqlite3.connect("db.sqlite")
+    qao = conn.cursor()
     form = SurveyForm()
     if form.validate_on_submit():
         print("WTF")
@@ -305,6 +312,8 @@ def survey_post():
         message = "{}, your answers were recorded for {}.".format(username.title(), project_name.lower())
         print(form['architectual_operability_level_1'].form['3C0726BE.C643B3E9891E'].data)
 
+        qao.execute("INSERT INTO voter_registry VALUES (?,?,?,?,?,?)", (tuuid, survey_id, project_id, username, datetime.datetime.now(), jobrole_id))
+
         for level in get_question_levels(form):
             dimension = level.split("_level_")[0]
             level_number = level.split("level_")[1]
@@ -315,11 +324,14 @@ def survey_post():
                 #print(question_id)
                 if dao.validate_question(dimension, level_number, question_id):
                     print("{} == {}".format(question_id, vote_value))
+                    print(survey_id)
+                    #qao.execute("INSERT INTO votes VALUES ('2006-01-05','BUY','RHAT',100,35.14)")
+                    qao.execute("INSERT INTO vote VALUES (?,?,?)", (tuuid, question_id, vote_value))
                 else:
                     print("Invalid form value provided {}".format(question_id))
                 #print(form[level].form.data[question].form.data)
                 pass#print(question, form[level].form[question].data)
-
+        conn.commit()
         return render_template('voted.html', form=form, message=message, survey_id=survey_id, survey_name=survey_name, username=username, jobrole_name=jobrole_name, project_name=project_name)
 
 # index
@@ -361,8 +373,38 @@ def index():
     surveys = dao.get_valid_surveys()
     return render_template('index.html', form=form, message=message, orgname=dao.get_orgname(), allsurveys=surveys)
 
+def select(verbose=True):
+    sql = "SELECT * FROM vote"
+    recs = qao.execute(sql)
+    if verbose:
+        for row in recs:
+            print(row)
+
+    sql = "SELECT * FROM voter_registry"
+    recs = qao.execute(sql)
+    if verbose:
+        for row in recs:
+            print(row)
+
+
 # keep this as is
 if __name__ == '__main__':
     dao = JsonDb()
+
+    conn = sqlite3.connect("db.sqlite")
+    qao = conn.cursor()
+
+    qao.execute('''CREATE TABLE IF NOT EXISTS voter_registry
+                 (uuid_xref text, survey_id text, project_id text, username text, date_iso8601 text, jobrole_id text)''')
+
+    qao.execute('''CREATE TABLE IF NOT EXISTS vote
+                 (uuid_xref text, question_id text, answer integer)''')
+
+    qao.execute('''CREATE TABLE IF NOT EXISTS vote_matrix_achievement
+                 (uuid_xref text, dimension_id text, section_level text, percent_achieved integer)''')
+
+    select()
+    conn.commit()
+
     generate_survey_questions()
     app.run(debug=True, port=9999)
