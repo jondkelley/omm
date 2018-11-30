@@ -3,7 +3,7 @@ from flask import Flask, render_template, make_response, request, redirect
 from flask_bootstrap import Bootstrap
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, FormField, BooleanField, SelectField, HiddenField
-from wtforms.validators import Required
+from wtforms.validators import DataRequired
 import json
 
 app = Flask(__name__)
@@ -155,7 +155,7 @@ class JsonDb():
         pass
 
 class StartForm(FlaskForm):
-    username = StringField('What is your name/nickname/alias/psuedonym?', validators=[Required()])
+    username = StringField('What is your name/nickname/alias/psuedonym?', validators=[DataRequired()])
 
     jobrole_choicelist = []
     project_choicelist = []
@@ -253,11 +253,15 @@ def survey_get():
     try:
         jobrole_name = dao.get_valid_roles()[jobrole_id].title()
     except KeyError:
-        # user failed to supply args
-        return redirect("/")
-
-    survey_name = dao.get_valid_surveys()[survey_id]
-    project_name = dao.get_valid_projects()[project_id]
+        return "Malformed input error. That isn't a valid jobrole.", 400
+    try:
+        survey_name = dao.get_valid_surveys()[survey_id]
+    except KeyError:
+        return "Malformed input error. That isn't a valid survey.", 400
+    try:
+        project_name = dao.get_valid_projects()[project_id]
+    except KeyError:
+        return "Malformed input error. That isn't a valid project.", 400
     project_name = project_name.title()
     form = SurveyForm(jobrole_id=jobrole_id, survey_id=survey_id, project_id=project_id, jobrole_name=jobrole_name, survey_name=survey_name, project_name=project_name, username=username)
 
