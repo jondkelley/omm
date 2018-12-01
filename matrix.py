@@ -22,6 +22,15 @@ app.config['BOOTSTRAP_SERVE_LOCAL'] = True
 @app.errorhandler(500)
 def internal_server_error(e):
     return render_template('500.html'), 500
+class SqliteDb():
+    """
+    helpers for sqlite
+    """
+    def does_user_exist_in_survey(self, qao, username, survey_id):
+        """
+        validate if user already voted in a survey
+        """
+        return qao.execute("SELECT * FROM voter_registry WHERE username=? AND survey_id=?", (username, survey_id))
 
 class JsonDb():
     """
@@ -63,12 +72,6 @@ class JsonDb():
         valid_question = self.data['question_pool'][dimension][level].get(question_id, False)
         return valid_question
 
-    def get_questions(self):
-        """
-        retrieve the question pool
-        """
-        pass
-
     def get_valid_roles(self):
         """
         get a list of roles you can use
@@ -80,6 +83,20 @@ class JsonDb():
         get a list of projects you can use
         """
         return self.data['project_ids']
+
+    def get_number_of_questions_by_dimension(self, levelinput, dimensioninput):
+        """
+        used for grading percentage at the end of the survey
+
+        retruns a list of each section and the number of questions within
+        """
+        nodata = None
+        for dimension, dimdata in self.data['question_pool'].items():
+            for level, questions in dimdata.items():
+                for question_id, question in questions.items():
+                    if (level == levelinput) and (dimension == dimensioninput):
+                        return len(questions)
+        return nodata
 
     def get_active_surveys(self):
         """
@@ -100,66 +117,11 @@ class JsonDb():
             valid_surveys[id] = values['name']
         return valid_surveys
 
-    def start_new_survey(self):
-        """
-        starts a new survey and marks it active (deactives others)
-        """
-        pass
-
-    def get_vote_average(self, survey):
-        """
-        gets the average vote for a service from the summary screen
-        """
-        dstruct = {"operability": {"maxlevel": "1", "votes": [] }}
-        pass
-
-    def votes_detail(self, survey):
-        """
-        get a list of detailed vote data
-        """
-        dstruct = {"operability": {"maxlevel": "1", "votes": [] }}
-        pass
-
-    def check_if_already_voted(self, username, project):
-        """
-        returns true if a user already voted in a project
-        """
-        return ""
-
-    def cast_vote(self, data):
-        """
-        writes a new vote to disk
-        """
-        input_contract = {"project_id": { "survey_id": "-1", "username": "nobody", "role_id": "-1", "date": "-1", "votes": {}}}
-        # output_structr = {
-        # 	"project_id_1": [{
-        # 		"survey_id": "1",
-        # 		"username": "jkelley",
-        # 		"role_id": "1",
-        # 		"votes": {
-        # 			"00000000050": true
-        # 		},
-        # 		"achievements": ["Architectual_Operability_Level_3"],
-        # 		"date": "393764732923"
-        # 	}]}
-        value = input_contract.values()[0]
-        project_id = input_contract.keys()[0]
-        project_id = value['project_id']
-        survey_id = value['survey_id']
-        username = value['username']
-        role_id = value['role_id']
-        date = value['date']
-        votes = value['votes']
-
-        result = dict()
-        project_id_name = "project_id_{}".format(project_id)
-        result[project_id_name] = list()
-        result[project_id_name].append({"username": username, "survey_id": survey_id, "role_id": role_id, "date": date, "votes": votes})
-
-        pass
-
-class StartForm(FlaskForm):
-    username = StringField('What is your name/nickname/alias/psuedonym?', validators=[DataRequired()])
+class HomePageForm(FlaskForm):
+    """
+    main index form to start a new survey
+    """
+    username = StringField('What is your username?', validators=[DataRequired()])
 
     jobrole_choicelist = []
     project_choicelist = []
@@ -182,7 +144,9 @@ class StartForm(FlaskForm):
 
 class SurveyForm(FlaskForm):
     """
-    a metaclass template (the royal we) for questions added dynamically by generate_test_questions()
+    a metaclass template (the royal we) to generate the survey from
+    we overload the questions dynamically inside function generate_survey_questions()
+    we retrieve the hidden input fields below as request arguements from the homepage
     """
     project_name = HiddenField("project_name")
     survey_name = HiddenField("survey_name")
@@ -254,6 +218,18 @@ def survey_get():
     survey_id = request.args.get('survey_id')
     project_id = request.args.get('project_id')
     username = request.args.get('username').title()
+
+    conn = sqlite3.connect("db.sqlite")
+    qao = conn.cursor()
+    sdb = SqliteDb()
+    already_voted = False
+    for row in sdb.does_user_exist_in_survey(qao, username, survey_id):
+        already_voted = True
+    if already_voted:
+        message = "You already voted!"
+        return render_template('votedalready.html', message=message, survey_id=survey_id, survey_name=survey_id, username=username, jobrole_name=jobrole_id, project_name=project_id)
+
+
     try:
         jobrole_name = dao.get_valid_roles()[jobrole_id].title()
     except KeyError:
@@ -294,44 +270,47 @@ def get_questions(form, level):
 
 @app.route('/survey/submitted', methods=['POST'])
 def survey_post():
-    tuuid = "-".join(str(uuid.uuid4()).split("-")[2:])
+    tuuid = "voterid_{}".format("".join(str(uuid.uuid4()).split("-")[1:]))
     conn = sqlite3.connect("db.sqlite")
     qao = conn.cursor()
     form = SurveyForm()
     if form.validate_on_submit():
-        print("WTF")
         username = form['username'].data
         jobrole_name = form['jobrole_name'].data
         survey_name = form['survey_name'].data
         project_name = form['project_name'].data
         jobrole_id = form['jobrole_id'].data
         survey_id = form['survey_id'].data
+
         project_id = form['project_id'].data
-        print(project_name, survey_name, jobrole_name, username)
-        print(dir(form['L/A/M/A_level_1'].form.data))
         message = "{}, your answers were recorded for {}.".format(username.title(), project_name.lower())
-        print(form['architectual_operability_level_1'].form['3C0726BE.C643B3E9891E'].data)
 
         qao.execute("INSERT INTO voter_registry VALUES (?,?,?,?,?,?)", (tuuid, survey_id, project_id, username, datetime.datetime.now(), jobrole_id))
-
+        questions_answered_true = {}
         for level in get_question_levels(form):
             dimension = level.split("_level_")[0]
+            questions_answered_true[level] = {}
             level_number = level.split("level_")[1]
             questions = get_questions(form, level)
             for question_id in questions:
                 question_id = "".join(question_id.split("-")[1:])
                 vote_value = form[level].form[question_id].data
-                #print(question_id)
                 if dao.validate_question(dimension, level_number, question_id):
-                    print("{} == {}".format(question_id, vote_value))
-                    print(survey_id)
-                    #qao.execute("INSERT INTO votes VALUES ('2006-01-05','BUY','RHAT',100,35.14)")
+                    #print("{} == {}".format(question_id, vote_value))
+                    if vote_value == True:
+                        questions_answered_true[level][question_id] = True
                     qao.execute("INSERT INTO vote VALUES (?,?,?)", (tuuid, question_id, vote_value))
                 else:
                     print("Invalid form value provided {}".format(question_id))
-                #print(form[level].form.data[question].form.data)
-                pass#print(question, form[level].form[question].data)
         conn.commit()
+        for dimension_level, votes in questions_answered_true.items():
+            dimension = dimension_level.split("_level_")[0]
+            level_number = dimension_level.split("level_")[1]
+            question_count_total = dao.get_number_of_questions_by_dimension(level_number, dimension)
+            percentage = int((len(votes)/question_count_total) * 100)
+            print("{} for {} - {}_level_{} scored as {}%".format(username, project_name, dimension, level_number, percentage))
+            qao.execute("INSERT INTO vote_matrix_achievement VALUES (?,?,?,?)", (tuuid, dimension, level_number, percentage))
+            conn.commit()
         return render_template('voted.html', form=form, message=message, survey_id=survey_id, survey_name=survey_name, username=username, jobrole_name=jobrole_name, project_name=project_name)
 
 # index
@@ -341,7 +320,7 @@ def index():
     names = ['crm', 'wp']#get_names(ACTORS)
     # you must tell the variable 'form' what you named the class, above
     # 'form' is the variable name used in this template: index.html
-    form = StartForm()
+    form = HomePageForm()
     message = ""
     if form.validate_on_submit():
         username = form.username.data
@@ -386,6 +365,12 @@ def select(verbose=True):
         for row in recs:
             print(row)
 
+    sql = "SELECT * FROM vote_matrix_achievement"
+    recs = qao.execute(sql)
+    if verbose:
+        for row in recs:
+            print(row)
+
 
 # keep this as is
 if __name__ == '__main__':
@@ -394,6 +379,7 @@ if __name__ == '__main__':
     conn = sqlite3.connect("db.sqlite")
     qao = conn.cursor()
 
+    # generate me schema
     qao.execute('''CREATE TABLE IF NOT EXISTS voter_registry
                  (uuid_xref text, survey_id text, project_id text, username text, date_iso8601 text, jobrole_id text)''')
 
@@ -401,7 +387,7 @@ if __name__ == '__main__':
                  (uuid_xref text, question_id text, answer integer)''')
 
     qao.execute('''CREATE TABLE IF NOT EXISTS vote_matrix_achievement
-                 (uuid_xref text, dimension_id text, section_level text, percent_achieved integer)''')
+                 (uuid_xref text, dimension text, level text, percent integer)''')
 
     select()
     conn.commit()
