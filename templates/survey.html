@@ -9,6 +9,19 @@
 	}
 
 
+	  #background {
+	    width: 100%;
+	    height: 100%;
+	    position: fixed;
+	    left: 0px;
+	    top: 0px;
+	    z-index: -1; /* Ensure div tag stays behind content; -999 might work, too. */
+	  }
+
+	  .stretch {
+	      width:100%;
+	      height:100%;
+	  }
 	/* Style the collapsible content. Note: hidden by default */
 	.collapsible_content {
 	  padding: 0 28px;
@@ -50,11 +63,14 @@
 	form {
 		opacity: 0.6;
 	}
-	p, blockquote, form {
+	p, blockquote {
+		color: white;
+	}
+  form {
 		color: black;
 	}
 	form {
-		background-color: #0f8dad;
+		background-color: black;
 	}
 	label[for="csrf_token"], label[for="project_name"],
 	label[for="survey_name"], label[for="jobrole_name"],
@@ -97,6 +113,9 @@ Operational Maturity Matrix
 
 
 {% block content %}
+<div id="background">
+    <img src="/static/rain.gif" class="stretch" alt="background image" />
+</div>
 
 
     <!-- Fixed navbar -->
@@ -139,7 +158,7 @@ Operational Maturity Matrix
 
 
 				<b><kbd>INSTRUCTIONS:</kbd></b>
-				<b><kbd>To make this fast, only expand the highest level of each dimension that can meet 100%. If you can't, try a new dimension.
+				<b><kbd>To make this fast, only expand the highest level of each dimension that can meet 100%.
 					</br>
 				If you can't complete Recoverability level 1, you don't need to review Recoverability level 2 questions until level 1 is achieved in production.</kbd></b>
 			<form action="/survey/submitted" method="POST">
