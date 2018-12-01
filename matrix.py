@@ -2,7 +2,7 @@
 from flask import Flask, render_template, make_response, request, redirect
 from flask_bootstrap import Bootstrap
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, FormField, BooleanField, SelectField, HiddenField
+from wtforms import StringField, SubmitField, TextAreaField,  FormField, BooleanField, SelectField, HiddenField
 from wtforms.validators import DataRequired
 import json
 import sqlite3
@@ -14,19 +14,26 @@ app.config['SECRET_KEY'] = 'xxxxxxxxxxxxxxxxxxxxxxxxxxx'
 Bootstrap(app) # Flask-Bootstrap requires this line
 app.config['BOOTSTRAP_SERVE_LOCAL'] = True
 
+
 # with Flask-WTF, each web form is represented by a class
 # "NameForm" can change; "(FlaskForm)" cannot
 # see the route for "/" and "index.html" to see how this is used
 
-
 @app.errorhandler(500)
 def internal_server_error(e):
     return render_template('500.html'), 500
+
 class SqliteDb():
     """
     helpers for sqlite
     """
     def does_user_exist_in_survey(self, qao, username, survey_id):
+        """
+        validate if user already voted in a survey
+        """
+        return qao.execute("SELECT * FROM voter_registry WHERE username=? AND survey_id=?", (username, survey_id))
+
+    def sss(self, qao, username, survey_id):
         """
         validate if user already voted in a survey
         """
@@ -175,6 +182,9 @@ def generate_survey_questions():
                 question_form[id] = BooleanField(question)
 
             setattr(SurveyForm, heading_class_name, FormField(type(heading_class_name, (FlaskForm,), question_form), id="id{}".format(heading_class_name)))
+
+
+    setattr(SurveyForm, 'biggest_hurdle', TextAreaField("What is your biggest pain point in the realm of operationally maturity?"))
     setattr(SurveyForm, 'submit', SubmitField('Complete Survey'))
 
 # define functions to be used by the routes (just one here)
@@ -313,13 +323,23 @@ def survey_post():
             conn.commit()
         return render_template('voted.html', form=form, message=message, survey_id=survey_id, survey_name=survey_name, username=username, jobrole_name=jobrole_name, project_name=project_name)
 
+@app.route('/summary/detail/<survey_key>', methods=['GET'])
+def summary_detail(survey_key):
+    axvg = {"crm_project": { "operability": "100"}}
+    axa = {"crm_project": { "jkelley": { "date": "datetime", "title": "developer", "scores": { "level 1": { "operability": "100", "availability": "50"}, "level 2": { "operability": "100", "availability": "50"}}}}}
+
+    for project, voters in axa.items():
+        for voter, data in voters.items():
+            print(project, voter, data['scores']['level 1']['operability'])
+
+    return render_template('summarydetail.html', axa=axa, survey_name=survey_key)
+
+
+
 # index
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/index.html', methods=['GET', 'POST'])
 def index():
-    names = ['crm', 'wp']#get_names(ACTORS)
-    # you must tell the variable 'form' what you named the class, above
-    # 'form' is the variable name used in this template: index.html
     form = HomePageForm()
     message = ""
     if form.validate_on_submit():
@@ -343,12 +363,6 @@ def index():
         form.survey.data = ""
         form.project.data = ""
 
-        #res = make_response(render_template('survey.html', form=survey_form, surveyname=form.survey.data, message=message, orgname=dao.get_orgname(), allsurveys=dao.get_valid_surveys()))
-        # res.set_cookie("whoami", value="{}|{}|{}".format(form.username.data, form.jobrole.data, form.jobrole.data))
-        #
-        # message += "Cookie set.".format(form.jobrole.data)
-
-    # notice that we don't need to pass name or names to the template
     surveys = dao.get_valid_surveys()
     return render_template('index.html', form=form, message=message, orgname=dao.get_orgname(), allsurveys=surveys)
 

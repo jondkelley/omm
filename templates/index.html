@@ -52,17 +52,24 @@
 					<li><a href="https://github.com/BoomTownROI/TechOps/tree/boom-mor/boom-mor#scoring-criteria">Scoring Rules</a></li>
 				</ul>
 			</p>
-			<h3>Survey Result Detail</h3>
-			{% for key, value in allsurveys.items() %}
-			<button type="button" class="btn btn-info">
-				<b><a href="/summary/detail/{{ key }}">{{ value }} matrix results</a></b>
-			</button>
-			<br />
-			{% endfor %}
 			<br/>
-			<h3>Participate in a survey</h3>
+
 			<br/>
-      {{ wtf.quick_form(form) }}
+			<div class="container">
+
+									 <div class="row">
+									   <div class="col-md-4">
+							 			<h3>Previous Survey Results</h3>
+							 			{% for key, value in allsurveys.items() %}
+							 			<button type="button" class="btn btn-info">
+							 				<b><a href="/summary/detail/{{ key }}">{{ value }} matrix results</a></b>
+							 			</button>
+							 			<br />
+							 			{% endfor %}</div>
+									   <div class="col-md-4"><h3>Participate in an <i>open</i> survey</h3>
+											 {{ wtf.quick_form(form) }}</div>
+									 </div>
+
 
       <p class="space-above"><strong>{{ message }}</strong></p>
 

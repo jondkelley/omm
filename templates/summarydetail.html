@@ -1,0 +1,190 @@
+{% extends 'bootstrap/base.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block styles %}
+{{ super() }}
+<style>
+  /* Make sure that padding behaves as expected */
+  * {box-sizing:border-box}
+
+  .skills {
+      text-align: right; /* Right-align text */
+      padding-left: 10px; /* Add some padding */
+      padding-right: 10px; /* Add some padding */
+      color: white; /* White text color */
+  }
+
+  .html {width: 108%; background-color: green;} /* Green */
+  .htmls {width: 98%; background-color: red;} /* Green */
+
+  table {
+   border: 1px solid black;
+   padding: 1px;
+ }
+
+tr { border-bottom: 1px solid gray; }
+	.btn-default {
+    background-color: #266684; /* Green */
+    border: none;
+    color: white;
+    padding: 10px 22px;
+    text-align: center;
+    text-decoration: none;
+		font-weight: bold;
+    display: inline-block;
+    font-size: 19px;
+}
+</style>
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/animate.css') }}">
+{% endblock %}
+
+{% block title %}
+{{ survey_name | replace("_", " ") }} O.M.M. Summary
+{% endblock %}
+
+{% block content %}
+
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <h1>{{ survey_name | replace("_", " ") }} Operational Maturity Matrix</h1>
+      <p class="lead">
+        Polling is <kbd>OPEN</kbd>. Users may still be voting. Actual results may vary.
+
+
+      </p>
+      Jump to a project:
+      {% for project, voters in axa.items() %}
+        <ul>
+          <li><a href="#id_{{project}}">{{project | replace('_', ' ') | title }}</a></li>
+        </ul>
+      {% endfor %}
+    </div>
+  </div>
+        {% for project, voters in axa.items() %}
+
+      <div class="row">
+      <div id="id_{{ project}}">
+        <h2>{{project | replace('_', ' ') | title }}</h2>
+      </div>
+      <div class="col-xs-12" style="padding-left: 10px;">
+              <table class="col-md-4">
+                <tr>
+                  <td style="padding-right: 9px;" class="pull-right">Project Average Rating<td>
+                  <td><td>
+                </tr>
+                <tr>
+                  <th style="padding-right: 9px;"  class="pull-right">Operability<th>
+                  <td><big><big>Level 1</big></big> <small><small>MAX: 1, MIN: 0</small></small><td>
+                </tr>
+                <tr>
+                  <th style="padding-right: 9px;"  class="pull-right">Automation<th>
+                  <td><big><big>Level 1</big></big> <small><small>MAX: 1, MIN: 0</small></small><td>
+                </tr>
+               </table>
+             </div>
+          </div>
+            {% for voter, data in voters.items() %}
+          <br />
+          <div class="row">
+            <div class="col-xs-12" style="padding-left: 60px;">
+                    <table class="col-md-4">
+                      <tr>
+                        <th style="padding-right: 9px;" class="pull-right">Vote<th>
+                        <td>{{voter}}<td>
+                      </tr>
+                      <tr>
+                        <th style="padding-right: 9px;" class="pull-right">Datetime<th>
+                        <td>dohiw<td>
+                      </tr>
+                      <tr>
+                        <th style="padding-right: 9px;"  class="pull-right">Perspective<th>
+                        <td>{{ data['title'] | title }}<td>
+                      </tr>
+                      <tr>
+                        <th class="pull-right" style="padding-left: 9px;"><a href="/summary/voter/Q1_2018/jkelley">View votes...</a><th>
+                        <td><td>
+                      </tr>
+                      <tr>
+                        <th style="padding-right: 9px;"  class="pull-right">Operability<th>
+                        <td>Level 1<td>
+                      </tr>
+                      <tr>
+                        <th style="padding-right: 9px;"  class="pull-right">Automation<th>
+                        <td>Level 1<td>
+                      </tr>
+                     </table>
+                   </div>
+               </div>
+
+               <div class="row">
+                 <div style="padding-left: 120px;" class="col-xs-12">
+                   <small>The quick brown fix jobs over the lazy dog. Apple automobile applesource pieas, foreiwashe,  fix jobs over the lazy dog. Apple automobile applesource pieas, foreiwashe,  fix jobs over the lazy dog. Apple automobile applesource pieas, foreiwashe,  fix jobs over the lazy dog. Apple automobile applesource pieas, foreiwashe,</small>
+
+                 <br/>
+
+
+                 <h5>Operability</h5>
+                 <table>
+                      <tr>
+                          <td class="col-md-3">
+                              Level 1
+                          <td>
+                          <td class="col-md-9">
+                              <div class="skills html">100%</div>
+                          <td>
+                      </tr>
+                      <tr>
+                          <td class="col-md-3">
+                             Level 1
+                          <td>
+                          <td class="col-md-9">
+                             <div class="skills htmls">90%</div>
+                          <td>
+                      </tr>
+                </table>
+                <h5>Operability</h5>
+          </div>
+          {% endfor %}
+       {% endfor %}
+      </div>
+  </div>
+</div>
+
+<script>
+  $(function() {
+    $("td[colspan=3]").find("p").hide();
+    $("table").click(function(event) {
+        event.stopPropagation();
+        var $target = $(event.target);
+        if ( $target.closest("td").attr("colspan") > 1 ) {
+            $target.slideUp();
+            $target.closest("tr").prev().find("td:first").html("+");
+        } else {
+            $target.closest("tr").next().find("p").slideToggle();
+            if ($target.closest("tr").find("td:first").html() == "+")
+                $target.closest("tr").find("td:first").html("-");
+            else
+                $target.closest("tr").find("td:first").html("+");
+        }
+    });
+});</script>
+
+<!--
+TIPS about using Flask-Bootstrap:
+Flask-Bootstrap keeps the default Bootstrap stylesheet in the
+env/lib/python3.5/site-packages/flask_bootstrap/static/css/ directory.
+You can replace the CSS file. HOWEVER, when you reinstall requirements
+for your project, you would overwrite all the Bootstrap files
+with the defaults.
+Flask-Bootstrap templates are in
+env/lib/python3.5/site-packages/flask_bootstrap/static/templates
+Modifying the Bootstrap base.html template: use directives and
+Jinja2's super() function. See Jinja2 documentation and also this:
+https://pythonhosted.org/Flask-Bootstrap/basic-usage.html
+-->
+
+{% endblock %}
