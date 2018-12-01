@@ -6,7 +6,9 @@
 <style>
   /* Make sure that padding behaves as expected */
   * {box-sizing:border-box}
-
+  .center-cell {
+  text-align: center;
+  }
   .skills {
       text-align: right; /* Right-align text */
       padding-left: 10px; /* Add some padding */
@@ -49,41 +51,55 @@ tr { border-bottom: 1px solid gray; }
 
 <div class="container">
   <div class="row">
-    <div class="col-xs-12">
+    <div class="col-xs-10">
       <h1>{{ survey_name | replace("_", " ") }} Operational Maturity Matrix</h1>
       <p class="lead">
-        Polling is <kbd>OPEN</kbd>. Users may still be voting. Actual results may vary.
-
-
+        Polling is <kbd>OPEN</kbd>. Users may still be voting. Calculated averages may change without notice.
       </p>
-      Jump to a project:
-      {% for project, voters in axa.items() %}
-        <ul>
-          <li><a href="#id_{{project}}">{{project | replace('_', ' ') | title }}</a></li>
-        </ul>
+
+      <h4>Reports</h4>
+      <ul>
+      {% for project in axa.keys() %}
+        <li><a href="#id_{{project}}">{{project | replace('_', ' ') | upper }}</a></li>
       {% endfor %}
+      </ul>
+    </div>
+    <div class="col-xs-2">
+      <button class="pull-right btn btn-warning"><a href="/">Exit / Homepage</a></button>
     </div>
   </div>
         {% for project, voters in axa.items() %}
-
-      <div class="row">
+  <div class="row">
+      <div class="col-xs-12">
       <div id="id_{{ project}}">
-        <h2>{{project | replace('_', ' ') | title }}</h2>
+        <h3>{{project | replace('_', ' ') | title }}</h3>
       </div>
-      <div class="col-xs-12" style="padding-left: 10px;">
               <table class="col-md-4">
-                <tr>
-                  <td style="padding-right: 9px;" class="pull-right">Project Average Rating<td>
-                  <td><td>
-                </tr>
-                <tr>
-                  <th style="padding-right: 9px;"  class="pull-right">Operability<th>
-                  <td><big><big>Level 1</big></big> <small><small>MAX: 1, MIN: 0</small></small><td>
-                </tr>
-                <tr>
-                  <th style="padding-right: 9px;"  class="pull-right">Automation<th>
-                  <td><big><big>Level 1</big></big> <small><small>MAX: 1, MIN: 0</small></small><td>
-                </tr>
+                <thead>
+                  <th class="center-cell" colspan="3"><i><h4>Product Averages</h4></i></th>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th style="padding-right: 9px;"  class="pull-right">Architectual Operability<th>
+                    <td><big><big>Level 1</big></big> <small><small>MAX: 1, MIN: 0</small></small><td>
+                  </tr>
+                  <tr>
+                    <th style="padding-right: 9px;"  class="pull-right">Automation<th>
+                    <td><big><big>Level 1</big></big> <small><small>MAX: 1, MIN: 0</small></small><td>
+                  </tr>
+                  <tr>
+                    <th style="padding-right: 9px;"  class="pull-right">L/A/M/A<th>
+                    <td><big><big>Level 1</big></big> <small><small>MAX: 1, MIN: 0</small></small><td>
+                  </tr>
+                  <tr>
+                    <th style="padding-right: 9px;"  class="pull-right">Recoverability<th>
+                    <td><big><big>Level 1</big></big> <small><small>MAX: 1, MIN: 0</small></small><td>
+                  </tr>
+                  <tr>
+                    <th style="padding-right: 9px;"  class="pull-right">Documentation<th>
+                    <td><big><big>Level 1</big></big> <small><small>MAX: 1, MIN: 0</small></small><td>
+                  </tr>
+                </tbody>
                </table>
              </div>
           </div>
@@ -91,42 +107,53 @@ tr { border-bottom: 1px solid gray; }
           <br />
           <div class="row">
             <div class="col-xs-12" style="padding-left: 60px;">
-                    <table class="col-md-4">
-                      <tr>
-                        <th style="padding-right: 9px;" class="pull-right">Vote<th>
-                        <td>{{voter}}<td>
-                      </tr>
-                      <tr>
-                        <th style="padding-right: 9px;" class="pull-right">Datetime<th>
-                        <td>dohiw<td>
-                      </tr>
-                      <tr>
-                        <th style="padding-right: 9px;"  class="pull-right">Perspective<th>
-                        <td>{{ data['title'] | title }}<td>
-                      </tr>
-                      <tr>
-                        <th class="pull-right" style="padding-left: 9px;"><a href="/summary/voter/Q1_2018/jkelley">View votes...</a><th>
-                        <td><td>
-                      </tr>
-                      <tr>
-                        <th style="padding-right: 9px;"  class="pull-right">Operability<th>
-                        <td>Level 1<td>
-                      </tr>
-                      <tr>
-                        <th style="padding-right: 9px;"  class="pull-right">Automation<th>
-                        <td>Level 1<td>
-                      </tr>
+                    <table class="col-md-6">
+                      <thead>
+                        <th class="center-cell" colspan="3"><i><h5>Individual Feedback</h5></i></th>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th style="padding-right: 9px;" class="pull-right">Voter<th>
+                          <td><big>{{voter}}</big><td>
+                        </tr>
+                        <tr>
+                          <th style="padding-right: 9px;" class="pull-right">Datetime<th>
+                          <td><big>Sat Dec  1 14:39:04 EST 2018</big><td>
+                        </tr>
+                        <tr>
+                          <th style="padding-right: 9px;"  class="pull-right">Dept. Role<th>
+                          <td><big>{{ data['title'] | title }}</big><td>
+                        </tr>
+                        <tr>
+                          <th class="pull-right" style="padding-left: 9px;"><a href="/summary/voter/Q1_2018/jkelley">View votes...</a><th>
+                          <td><td>
+                        </tr>
+                        <tr>
+                          <th style="padding-right: 9px;"  class="pull-right">Architectual Operability<th>
+                          <td><big>Level 1</big><td>
+                        </tr>
+                        <tr>
+                          <th style="padding-right: 9px;"  class="pull-right">Automation<th>
+                          <td><big>Level 1</big><td>
+                        </tr>
+                        <tr>
+                          <th style="padding-right: 9px;"  class="pull-right">L/A/M/A<th>
+                          <td><big>Level 1</big><td>
+                        </tr>
+                        <tr>
+                          <th style="padding-right: 9px;"  class="pull-right">Documentation<th>
+                          <td><big>Level 1</big><td>
+                        </tr>
+                      </tbody>
                      </table>
                    </div>
                </div>
 
                <div class="row">
                  <div style="padding-left: 120px;" class="col-xs-12">
-                   <small>The quick brown fix jobs over the lazy dog. Apple automobile applesource pieas, foreiwashe,  fix jobs over the lazy dog. Apple automobile applesource pieas, foreiwashe,  fix jobs over the lazy dog. Apple automobile applesource pieas, foreiwashe,  fix jobs over the lazy dog. Apple automobile applesource pieas, foreiwashe,</small>
-
-                 <br/>
 
 
+                <br/>
                  <h5>Operability</h5>
                  <table>
                       <tr>
@@ -146,6 +173,7 @@ tr { border-bottom: 1px solid gray; }
                           <td>
                       </tr>
                 </table>
+                <br/>
                 <h5>Operability</h5>
           </div>
           {% endfor %}

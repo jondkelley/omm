@@ -142,7 +142,7 @@ class HomePageForm(FlaskForm):
     for k, v in dao.get_active_surveys():
         survey_choicelist.append((k, v))
 
-    jobrole = SelectField('What is your job role?', choices=jobrole_choicelist)
+    jobrole = SelectField('What is your relation to the project?', choices=jobrole_choicelist)
     #[('1', 'ops'), ('2', 'qa'), ('3', 'developer'), ('4', 'dev manager'), ('5', 'product owner'), ('6', 'architect'), ('7', 'director'), ('8', 'support')])
     survey = SelectField('Select an open survey', choices=survey_choicelist)
     project = SelectField('Select a project', choices=project_choicelist)

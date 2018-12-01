@@ -252,6 +252,8 @@
 		"50": "project manager",
 		"60": "product owner",
 		"70": "dev manager",
+		"71": "QA manager",
+		"72": "ops manager",
 		"80": "principal engineer",
 		"90": "architect",
 		"100": "distinguished somebody",

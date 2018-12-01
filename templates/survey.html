@@ -61,7 +61,7 @@
 		display: none;
 	}
 	form {
-		opacity: 0.6;
+		opacity: 0.98;
 	}
 	p, blockquote {
 		color: white;
@@ -101,6 +101,13 @@
 	color: black;
 	font-weight: bold;
 }
+.mainp {
+background-color: black;
+color: white;
+
+	opacity: 0.8;
+font-weight: bold;
+}
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
@@ -114,7 +121,7 @@ Operational Maturity Matrix
 
 {% block content %}
 <div id="background">
-    <img src="/static/rain.gif" class="stretch" alt="background image" />
+    <img src="/static/gears.gif" class="stretch" alt="background image" />
 </div>
 
 
@@ -146,20 +153,20 @@ Operational Maturity Matrix
 <br />
 
 <div class="container">
-    <div class="row">
+    <div class="mainp row">
       <div class="col-xs-12">
         </div>
         </div>
 			<br/>
-			<p class="lead"><b>Thank you for contributing to the <big>{{ survey_name }}</big> matrix benchmark!</b>
+			<p class="mainp lead"><b>Thank you for contributing to the <big>{{ survey_name }}</big> matrix benchmark!</b>
 
-				<blockquote>	Almost all quality improvement comes from </br>simplifcation of design, manufacturing, layout,</br> process, procedure, hardware or software. - Tom Peters (author of "<i>In Search of Excellence</i>" published 1982)
+				<blockquote class="mainp">	Almost all quality improvement comes from <br/>simplifcation of design, manufacturing, layout,<br/> process, procedure, hardware or software. - Tom Peters (author of "<i>In Search of Excellence</i>" published 1982)
 				</blockquote>
 
 
 				<b><kbd>INSTRUCTIONS:</kbd></b>
-				<b><kbd>To make this fast, only expand the highest level of each dimension that can meet 100%.
-					</br>
+				<b><kbd>You only really need to expand the highest level of each dimension that can meet 100%.
+				<br/>
 				If you can't complete Recoverability level 1, you don't need to review Recoverability level 2 questions until level 1 is achieved in production.</kbd></b>
 			<form action="/survey/submitted" method="POST">
 			   {% for field in form %}
@@ -169,7 +176,7 @@ Operational Maturity Matrix
 						 </div>
 			   {% endfor %}
 
-				</br>
+				<br/>
     		<input class="btn btn-default" id="submit" name="submit" type="submit" value="Complete Survey">
 				 </form>
  			 {{ surveyname }}
