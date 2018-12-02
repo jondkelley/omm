@@ -124,6 +124,25 @@ class JsonDb():
             valid_surveys[id] = values['name']
         return valid_surveys
 
+    def get_survey_name_by_id(self, survey_id_input):
+        """
+        gets a survey id by a provided name
+        """
+        no_survey = None
+        for survey_id, values in self.data['survey_ids'].items():
+            if survey_id == survey_id_input:
+                return values['name']
+        return no_survey
+
+    def get_project_id_by_name(self, project_name):
+        """
+        gets a project id by a provided name
+        """
+        no_project = None
+        for project_id, value in self.data['project_ids'].items():
+            if value == project_name:
+                return project_id
+        return no_project
 class HomePageForm(FlaskForm):
     """
     main index form to start a new survey
@@ -323,18 +342,62 @@ def survey_post():
             conn.commit()
         return render_template('voted.html', form=form, message=message, survey_id=survey_id, survey_name=survey_name, username=username, jobrole_name=jobrole_name, project_name=project_name)
 
-@app.route('/summary/detail/<survey_key>', methods=['GET'])
-def summary_detail(survey_key):
-    axvg = {"crm_project": { "operability": "100"}}
-    axa = {"crm_project": { "jkelley": { "date": "datetime", "title": "developer", "scores": { "level 1": { "operability": "100", "availability": "50"}, "level 2": { "operability": "100", "availability": "50"}}}}}
+@app.route('/summary/detail/<survey_id>', methods=['GET'])
+def summary_detail(survey_id):
+    conn = sqlite3.connect("db.sqlite")
+    qao = conn.cursor()
+    survey_name = dao.get_survey_name_by_id(survey_id)
 
-    for project, voters in axa.items():
-        for voter, data in voters.items():
-            print(project, voter, data['scores']['level 1']['operability'])
+    avg_scores = {"crm_project": { "operability": {"avg": 1, "max": 1, "min": 0}}}
+    ind_scores = {"crm_frontend": { "jkelley": { "date": "datetime", "title": "developer", "scores": { "level 1": { "operability": "100", "availability": "50"}, "level 2": { "operability": "100", "availability": "50"}}}}}
+    ind_answers = {"crm_project": { "jkelley": { "date": "datetime", "title": "developer", "answers": { "level 1": { "383838838388383": True}}}}}
 
-    return render_template('summarydetail.html', axa=axa, survey_name=survey_key)
+    # used by template
+    ind_scores_real = {}
+    avg_scores_real = {}
 
 
+    # create dict of votes
+    votes = qao.execute("SELECT * FROM vote")
+    votes_d = {}
+    for vote in votes:
+        uuid = vote[0]
+        question_id = vote[1]
+        answer = vote[2]
+        votes_d[uuid] = {question_id: answer}
+
+    # create dict of achievements
+    achivements = qao.execute("SELECT * FROM vote_matrix_achievement")
+    achievements_d = {}
+    for achivement in achivements:
+        uuid = achivement[0]
+        dimension_text = achivement[1]
+        dimension_level = achivement[2]
+        percent = achivement[3]
+        achievements_d[uuid] = {"text": dimension_text, "level": dimension_level, "percent": percent}
+
+    # process votes
+    for project_name in dao.get_valid_projects().values():
+        ind_scores_real[project_name] = {}
+        avg_scores_real[project_name] = {}
+    for project_name in dao.get_valid_projects().values():
+        project_id = dao.get_project_id_by_name(project_name)
+        print(project_name, project_id, survey_id)
+        query = qao.execute("SELECT * FROM voter_registry")
+        for col in query:
+            col_uuid = col[0]
+            col_survey_id = col[1]
+            col_project_id = col[2]
+            col_username = col[3]
+            col_datetime = col[4]
+            col_role_id = col[5]
+
+            if (survey_id == col_survey_id and project_id == col_project_id):
+                print(col)
+                ind_scores_real[project_name][col_username] = {"username": col_username, "date": col_datetime, "title": col_role_id, "scores": {}}
+
+    print(ind_scores_real)
+    return render_template('summarydetail.html', valid_projects=dao.get_valid_projects().values(), ind_scores=ind_scores_real, avg_scores=avg_scores, survey_name=survey_name)
 
 # index
 @app.route('/', methods=['GET', 'POST'])

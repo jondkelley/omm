@@ -57,9 +57,10 @@ tr { border-bottom: 1px solid gray; }
         Polling is <kbd>OPEN</kbd>. Users may still be voting. Calculated averages may change without notice.
       </p>
 
-      <h4>Reports</h4>
+      <h4>Projects</h4>
       <ul>
-      {% for project in axa.keys() %}
+
+      {% for project in valid_projects %}
         <li><a href="#id_{{project}}">{{project | replace('_', ' ') | upper }}</a></li>
       {% endfor %}
       </ul>
@@ -68,7 +69,7 @@ tr { border-bottom: 1px solid gray; }
       <button class="pull-right btn btn-warning"><a href="/">Exit / Homepage</a></button>
     </div>
   </div>
-        {% for project, voters in axa.items() %}
+        {% for project, voters in ind_scores.items() %}
   <div class="row">
       <div class="col-xs-12">
       <div id="id_{{ project}}">
